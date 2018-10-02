@@ -1,0 +1,78 @@
+#N canvas 128 2 1723 1046 16;
+#X obj 121 158 soundfiler;
+#X obj 121 55 openpanel;
+#X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
+-260097;
+#X obj 121 207 expr 44100 / $f1;
+#X obj 121 281 phasor~;
+#X obj 54 346 *~;
+#X obj 98 793 *~;
+#X floatatom 106 600 5 0 1.5 0 - - -;
+#X obj 106 667 line~;
+#X msg 106 634 \$1 20;
+#X obj 97 839 dac~, f 7;
+#X floatatom 121 248 15 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1L 1.23187e+06 float 2;
+#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
+#X restore 641 345 graph;
+#X obj 573 293 unsig~ 50;
+#X obj 644 345 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 25862 1;
+#X msg 458 59 \; pd dsp \$1;
+#X obj 458 24 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
+1;
+#X text 282 248 <-phasor frequency;
+#X obj 183 386 unsig~ 50;
+#X floatatom 183 423 15 0 0 0 - - -;
+#X obj 106 533 loadbang;
+#X msg 106 566 1;
+#X obj 141 316 send~ toBuf1Graph;
+#X obj 573 259 receive~ toBuf1Graph;
+#X text 348 422 <-current sample index;
+#X text 499 25 <-start/stop DSP;
+#X text 162 598 <-change amplitude here;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1R 1.23187e+06 float 2;
+#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
+#X restore 641 545 graph;
+#X obj 644 545 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 25862 1;
+#X msg 121 121 read -resize \$1 buf1L buf1R;
+#X text 652 205 Add an additional 'Array' object to graph right channel.
+Takes same input to Hslider., f 44;
+#X text 406 121 <-add an additional argument for both channels - buf1L
+and buf1R, f 32;
+#X text 50 467 Add another tabread4~ object 'buf1R', f 38;
+#X obj 35 492 tabread4~ buf1L;
+#X obj 204 492 tabread4~ buf1R;
+#X obj 210 793 *~;
+#X text 251 792 <-multiple by amp and send to channel 2 of the dac~
+;
+#X connect 0 0 3 0;
+#X connect 0 0 5 1;
+#X connect 1 0 29 0;
+#X connect 2 0 1 0;
+#X connect 3 0 11 0;
+#X connect 4 0 5 0;
+#X connect 4 0 22 0;
+#X connect 5 0 18 0;
+#X connect 5 0 33 0;
+#X connect 5 0 34 0;
+#X connect 6 0 10 0;
+#X connect 7 0 9 0;
+#X connect 8 0 6 1;
+#X connect 8 0 35 1;
+#X connect 9 0 8 0;
+#X connect 11 0 4 0;
+#X connect 13 0 14 0;
+#X connect 13 0 28 0;
+#X connect 16 0 15 0;
+#X connect 18 0 19 0;
+#X connect 20 0 21 0;
+#X connect 21 0 7 0;
+#X connect 23 0 13 0;
+#X connect 29 0 0 0;
+#X connect 33 0 6 0;
+#X connect 34 0 35 0;
+#X connect 35 0 10 1;

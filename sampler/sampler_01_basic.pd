@@ -1,0 +1,86 @@
+#N canvas 128 2 1723 1046 16;
+#X obj 121 158 soundfiler;
+#X obj 121 55 openpanel;
+#X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
+-260097;
+#X obj 121 440 expr 44100 / $f1;
+#X obj 121 514 phasor~;
+#X obj 54 579 *~;
+#X obj 143 934 *~;
+#X floatatom 573 821 5 0 1.5 0 - - -;
+#X obj 573 888 line~;
+#X msg 573 855 \$1 20;
+#X obj 142 980 dac~, f 7;
+#X floatatom 121 481 15 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1 1.23187e+06 float 2;
+#X coords 0 1 1.23187e+06 -1 600 300 1 0 0;
+#X restore 869 404 graph;
+#X obj 870 349 unsig~ 50;
+#X obj 873 404 hsl 595 300 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 458 59 \; pd dsp \$1;
+#X obj 458 24 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
+1;
+#X text 229 159 <-stores chosen soundfile as an array aka buffer;
+#X text 130 186 ^ outputs total number of samples in buffer;
+#X text 147 224 The phasor~ object generates a sawtooth waveform. IOW
+\, it generates a line from 0-1 and then hops back to 0 It takes a
+frequency argument: the number of cycles (0-1 \, jump to 0) per second.
+So \, if we want to play the sample back at normal speed \, we have
+to go from 0-1 over the duration of the sample. The soundfiler object
+outputs the total number of samples. If we take the sample rate (44
+\, 100 samples/sec) and divide it by the total number of samples \,
+we will have the frequency necessary to play the sample back at normal
+speed., f 65;
+#X text 282 481 <-phasor frequency;
+#X msg 121 111 read -resize \$1 buf1;
+#X text 99 580 <- Create an Indexer to the buffer phasor~ outputs a
+number from 0-1. We multiply it by the total number of samples in the
+sample buffer. It now indexes which sample we are playing at any given
+moment.;
+#X obj 68 704 unsig~ 50;
+#X floatatom 68 741 15 0 0 0 - - -;
+#X obj 573 754 loadbang;
+#X msg 573 787 1;
+#X obj 141 549 send~ toBuf1Graph;
+#X obj 870 315 receive~ toBuf1Graph;
+#X text 868 240 The Array object graphs an array. There is a horziontal
+slider overlayed that acts as a cursor.;
+#X text 1088 303 The Hslider is receiving the current index;
+#X text 233 740 <-current sample index;
+#X text 499 25 <-start/stop DSP;
+#X obj 30 788 tabread4~ buf1;
+#X text 978 346 <-samples a signal \, outputs a float needs iemlib
+;
+#X text 571 693 Amplitude line~ creates a short envelope to avoid clicks
+, f 26;
+#X text 183 788 <-The tabread4~ object reads the buffer at the index
+point and outputs as audio signal, f 30;
+#X text 631 823 <-change amplitude here;
+#X text 224 51 <-opens dialog box to choose sample;
+#X text 335 115 <-msg to soundfiler to open chosen soundfile and store
+in 'buf1', f 37;
+#X connect 0 0 3 0;
+#X connect 0 0 5 1;
+#X connect 1 0 21 0;
+#X connect 2 0 1 0;
+#X connect 3 0 11 0;
+#X connect 4 0 5 0;
+#X connect 4 0 27 0;
+#X connect 5 0 23 0;
+#X connect 5 0 33 0;
+#X connect 6 0 10 0;
+#X connect 6 0 10 1;
+#X connect 7 0 9 0;
+#X connect 8 0 6 1;
+#X connect 9 0 8 0;
+#X connect 11 0 4 0;
+#X connect 13 0 14 0;
+#X connect 16 0 15 0;
+#X connect 21 0 0 0;
+#X connect 23 0 24 0;
+#X connect 25 0 26 0;
+#X connect 26 0 7 0;
+#X connect 28 0 13 0;
+#X connect 33 0 6 0;
