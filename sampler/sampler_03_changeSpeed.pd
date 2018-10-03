@@ -1,16 +1,16 @@
-#N canvas 128 2 1723 1046 16;
+#N canvas 240 0 1398 1046 16;
 #X obj 121 158 soundfiler;
 #X obj 121 55 openpanel;
 #X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
 -260097;
 #X obj 121 207 expr 44100 / $f1;
-#X obj 121 393 phasor~;
-#X obj 54 458 *~;
-#X obj 92 904 *~;
-#X floatatom 106 712 5 0 1.5 0 - - -;
-#X obj 106 779 line~;
-#X msg 106 746 \$1 20;
-#X obj 92 951 dac~, f 7;
+#X obj 136 521 phasor~;
+#X obj 48 586 *~;
+#X obj 71 923 *~;
+#X floatatom 282 808 5 0 1.5 0 - - -;
+#X obj 116 875 line~;
+#X msg 116 842 \$1 20;
+#X obj 71 970 dac~, f 7;
 #X floatatom 121 248 15 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
 #X array buf1L 1.23187e+06 float 2;
@@ -18,32 +18,43 @@
 #X restore 679 526 graph;
 #X obj 611 474 unsig~ 50;
 #X obj 682 526 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 49109 1;
+-1 -1 32613 1;
 #X msg 257 56 \; pd dsp \$1;
 #X obj 257 21 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
 1;
 #X text 282 248 <-phasor frequency;
-#X obj 183 498 unsig~ 50;
-#X floatatom 183 535 15 0 0 0 - - -;
-#X obj 106 645 loadbang;
-#X msg 106 678 1;
-#X obj 141 428 send~ toBuf1Graph;
+#X obj 198 626 unsig~ 50;
+#X floatatom 198 663 15 0 0 0 - - -;
+#X obj 116 741 loadbang;
+#X msg 116 774 1;
+#X obj 156 556 send~ toBuf1Graph;
 #X obj 611 440 receive~ toBuf1Graph;
-#X text 348 534 <-current sample index;
+#X text 363 662 <-current sample index;
 #X text 298 22 <-start/stop DSP;
-#X text 162 710 <-change amplitude here;
+#X text 338 806 <-change amplitude here;
 #N canvas 0 22 450 278 (subpatch) 0;
 #X array buf1R 1.23187e+06 float 2;
 #X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
 #X restore 679 726 graph;
 #X obj 682 726 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 49109 1;
+-1 -1 32613 1;
 #X msg 121 121 read -resize \$1 buf1L buf1R;
-#X obj 35 604 tabread4~ buf1L;
-#X obj 204 604 tabread4~ buf1R;
-#X obj 204 904 *~;
-#X text 166 295 To change speed simply multiple the phasor frequency
-;
+#X obj 45 700 tabread4~ buf1L;
+#X obj 214 700 tabread4~ buf1R;
+#X obj 183 923 *~;
+#X text 131 289 To change speed simply multiple the phasor frequency
+by the desired speed., f 38;
+#X obj 47 435 f;
+#X floatatom 165 338 10 0 0 0 - - -;
+#X obj 136 487 *;
+#X obj 165 383 t b f;
+#X text 84 428 <-the float object stores the current phasor frequency
+, f 30;
+#X text 227 377 <-send the speed change \, then bang the current freq
+to initiate multiplication, f 40;
+#X obj 568 131 loadbang;
+#X msg 567 167 1;
+#X text 271 338 <-speed \, negative values play backwards;
 #X connect 0 0 3 0;
 #X connect 0 0 5 1;
 #X connect 1 0 29 0;
@@ -59,7 +70,7 @@
 #X connect 8 0 6 1;
 #X connect 8 0 32 1;
 #X connect 9 0 8 0;
-#X connect 11 0 4 0;
+#X connect 11 0 34 0;
 #X connect 13 0 14 0;
 #X connect 13 0 28 0;
 #X connect 16 0 15 0;
@@ -71,3 +82,10 @@
 #X connect 30 0 6 0;
 #X connect 31 0 32 0;
 #X connect 32 0 10 1;
+#X connect 34 0 36 0;
+#X connect 35 0 37 0;
+#X connect 36 0 4 0;
+#X connect 37 0 34 0;
+#X connect 37 1 36 1;
+#X connect 40 0 41 0;
+#X connect 41 0 35 0;
