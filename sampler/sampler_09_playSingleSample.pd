@@ -8,7 +8,7 @@
 #X coords 0 1 2.17088e+06 -1 600 100 1 0 0;
 #X restore 12 238 graph;
 #X obj 15 258 hsl 595 60 0 1 0 0 empty toCsrL empty -2 -8 0 10 -262144
--1 -1 32941 1;
+-1 -1 0 1;
 #X obj 93 17 tgl 25 0 fromDSPtog empty empty 17 7 0 10 -257985 -1 -1
 0 1;
 #X text 121 142 <-phasor frequency;
@@ -19,39 +19,39 @@
 #X coords 0 1 2.17088e+06 -1 600 100 1 0 0;
 #X restore 12 338 graph;
 #X obj 15 360 hsl 595 60 0 1 0 0 empty toCsrR empty -2 -8 0 10 -262144
--1 -1 32941 1;
+-1 -1 0 1;
 #X floatatom 56 71 8 0 0 0 - toSpdNB fromSpdNB;
 #X floatatom 124 71 8 0 1 0 - toStartPct fromStartPct;
 #X floatatom 199 71 8 0 1 0 - toEndPct fromEndPct;
 #X obj 15 238 hsl 595 20 0 1 0 0 empty toStartPct empty -2 -8 0 10
--262144 -4034 -1 23500 1;
+-262144 -4034 -1 0 1;
 #X obj 15 318 hsl 595 20 0 1 0 0 empty toEndPct empty -2 -8 0 10 -262144
--4032 -1 34900 1;
+-4032 -1 59400 1;
 #X obj 15 188 hsl 595 25 0 1 0 0 toStartPct empty empty -2 -8 0 10
--4034 -1 -1 23500 1;
+-4034 -1 -1 0 1;
 #X obj 15 213 hsl 595 25 0 1 0 0 toEndPct empty empty -2 -8 0 10 -4032
--1 -1 34900 1;
-#N canvas 96 22 1766 1031 subpatch 0;
-#X obj 87 197 soundfiler;
-#X obj 83 121 openpanel;
-#X obj 50 288 expr 44100 / $f1;
+-1 -1 0 1;
+#N canvas 69 22 1766 1031 subpatch 1;
+#X obj 69 134 soundfiler;
+#X obj 65 58 openpanel;
+#X obj 32 225 expr 44100 / $f1;
 #X obj 138 368 phasor~;
 #X obj 114 436 *~;
 #X obj 67 926 *~;
 #X obj 63 955 dac~, f 7;
-#X obj 257 324 unsig~ 50;
-#X msg 196 119 \; pd dsp \$1;
+#X obj 299 318 unsig~ 50;
+#X msg 178 56 \; pd dsp \$1;
 #X obj 288 501 unsig~ 50;
 #X msg 566 43 1;
 #X obj 151 430 send~ toBuf1Graph;
-#X obj 257 299 receive~ toBuf1Graph;
-#X msg 87 160 read -resize \$1 buf1L buf1R;
+#X obj 299 293 receive~ toBuf1Graph;
+#X msg 69 97 read -resize \$1 buf1L buf1R;
 #X obj 49 526 tabread4~ buf1L;
 #X obj 168 526 tabread4~ buf1R;
 #X obj 145 925 *~;
-#X obj 138 317 f;
+#X obj 135 313 f;
 #X obj 137 341 *;
-#X obj 202 305 t b f;
+#X obj 183 243 t b f;
 #X obj 302 3 loadbang;
 #X msg 302 44 1;
 #X msg 382 43 0;
@@ -98,25 +98,25 @@ start point;
 #X connect 17 0 9 1;
 #X connect 17 0 18 0;
 #X restore 142 399 pd partialSample;
-#X obj 216 256 t b f;
-#X obj 203 280 * 1;
-#X obj 216 230 expr 1/$f1;
+#X obj 198 193 t b f;
+#X obj 185 217 * 1;
+#X obj 198 167 expr 1/$f1;
 #X msg 483 41 1;
 #X obj 382 67 s toStartPct;
 #X obj 483 71 s toEndPct;
 #X obj 302 68 s toSpdNB;
-#X obj 204 183 r fromSpdNB;
+#X obj 186 120 r fromSpdNB;
 #X obj 289 528 s toCurrSamp;
 #X obj 567 71 s toAmp;
-#X obj 459 608 r fromAmp;
-#X obj 257 352 s toCsrL;
-#X obj 321 352 s toCsrR;
-#X obj 194 81 r fromDSPtog;
-#X obj 46 80 r fromBangOpenpanel;
-#X obj 217 205 r fromPartPct;
-#X obj 28 313 s toPhasorFreq;
-#X obj 585 511 threshold~;
-#X text 664 506 <-threshold~ is reading from the current sample index
+#X obj 1454 613 r fromAmp;
+#X obj 299 346 s toCsrL;
+#X obj 363 346 s toCsrR;
+#X obj 176 18 r fromDSPtog;
+#X obj 28 17 r fromBangOpenpanel;
+#X obj 199 142 r fromPartPct;
+#X obj 7 307 s toPhasorFreq;
+#X obj 588 490 threshold~;
+#X text 672 482 <-threshold~ is reading from the current sample index
 and will detect when a certain threshold is reached;
 #X text 261 390 <-look here for a few adjustments, f 19;
 #X obj 871 108 r adjStartPct;
@@ -125,44 +125,44 @@ and will detect when a certain threshold is reached;
 #X obj 914 133 r fromPartPct;
 #X text 870 83 calculates end percentage;
 #X obj 525 178 r adjStartPct;
-#X obj 43 257 s fromTotalSamps;
+#X obj 25 194 s fromTotalSamps;
 #X obj 767 221 *;
 #X obj 734 187 r fromTotalSamps;
-#X obj 46 225 f;
+#X obj 28 162 f;
 #X obj 626 24 delay 5;
 #X text 798 220 <-multiple by total samples to get threshold;
-#X obj 304 897 vline~;
-#X obj 379 643 r fromRel;
-#X obj 543 616 r fromAtk;
-#X obj 619 616 r fromSus;
-#X obj 708 616 r fromDecay;
-#X text 288 980 vline~ takes triplets: destination \, time \, initial
+#X obj 1299 902 vline~;
+#X obj 1374 648 r fromRel;
+#X obj 1538 621 r fromAtk;
+#X obj 1614 621 r fromSus;
+#X obj 1703 621 r fromDecay;
+#X text 1283 985 vline~ takes triplets: destination \, time \, initial
 delay;
-#X obj 279 724 bng 15 250 50 0 empty toBangEnv empty 17 7 0 10 -262144
+#X obj 1328 687 bng 15 250 50 0 empty toBangEnv empty 17 7 0 10 -262144
 -1 -1;
-#X text 606 860 have to fudge order because the first inlet in pack
+#X text 1601 865 have to fudge order because the first inlet in pack
 above triggers envelope and we only want to trigger them manually or
 on amplitude changes;
-#X msg 405 849 0 \$2 \, \$1 \$3 \$4 \, \$5 \$6 \$7;
-#X text 607 815 \$2-release time \, \$1 amp level \, \$3 attack time
+#X msg 1400 854 0 \$2 \, \$1 \$3 \$4 \, \$5 \$6 \$7;
+#X text 1602 820 \$2-release time \, \$1 amp level \, \$3 attack time
 \, \$4 attack delay \, \$5 sustain level \, \$6 decay time \, \$7 sustain
 delay;
-#X obj 551 643 t b f;
-#X obj 381 682 + 100;
-#X text 429 682 <-attack delay is release + 100ms to have noticable
+#X obj 1546 648 t b f;
+#X obj 1376 687 + 100;
+#X text 1424 687 <-attack delay is release + 100ms to have noticable
 attack;
-#X obj 679 767 + 200;
-#X text 726 768 <-decay delay is release time + attack time + 100ms
+#X obj 1674 772 + 200;
+#X text 1721 773 <-decay delay is release time + attack time + 100ms
 ;
-#X obj 409 819 pack 1 100 15 200 1 0 5000;
-#X obj 572 720 * 1;
-#X text 285 929 change line~ to vline~ object to do a proper adsr envelope.
-Because we are doing threshold~ to detect the end of a sample \, we
-will release first then attack and sustain;
-#X text 603 720 multiply sustain level by amplitude so you get percentage
+#X obj 1404 824 pack 1 100 15 200 1 0 5000;
+#X obj 1567 725 * 1;
+#X text 1280 934 change line~ to vline~ object to do a proper adsr
+envelope. Because we are doing threshold~ to detect the end of a sample
+\, we will release first then attack and sustain;
+#X text 1598 725 multiply sustain level by amplitude so you get percentage
 of total amp;
-#X obj 472 640 t b f;
-#X obj 586 540 s toBangEnv;
+#X obj 1467 645 t b f;
+#X obj 589 519 s toBangEnv;
 #X obj 1287 89 samplerate~;
 #X obj 1254 8 r fromRel;
 #X obj 1254 37 / 1000;
@@ -198,6 +198,69 @@ the threshold negative, f 23;
 before sample ends, f 23;
 #X text 1367 144 Have to multiply by speed to get proper duration of
 release time, f 36;
+#X msg 199 821 0 \$1;
+#X text 216 558 Stop loop sequence;
+#X obj 216 600 r fromStopLoop;
+#X text 216 576 1) Release envelope;
+#X obj 250 666 s toRel;
+#X obj 224 693 r fromRel;
+#X text 295 722 2) Phasor frequency to zero after release is finished
+, f 27;
+#X obj 295 782 delay 100;
+#X obj 295 757 t b f;
+#X msg 268 261 0;
+#X obj 270 233 r toPhasor0;
+#X obj 120 267 r toCurrPhasorFreq;
+#X obj 294 813 s toPhasor0;
+#X text 515 579 Start loop sequence;
+#X text 515 601 1) Phasor frequency to current freq;
+#X obj 517 620 r fromStartLoop;
+#X obj 691 670 s toCurrPhasorFreq;
+#X text 515 698 2) Attack envelope, f 27;
+#X obj 629 676 s toAtk;
+#X obj 636 727 r fromAtk;
+#X obj 565 678 s toAmp;
+#X msg 512 835 \$1 \$2;
+#X obj 512 804 pack f f;
+#X obj 547 725 r fromAmp;
+#X text 831 522 One shot sequence;
+#X text 831 544 1) Stop loop;
+#X obj 1268 853 r toVline;
+#X obj 199 855 s toVline;
+#X msg 835 705 0 \$1;
+#X obj 867 615 s toRel;
+#X obj 887 640 r fromRel;
+#X obj 931 734 delay 100;
+#X obj 931 709 t b f;
+#X obj 989 793 s toPhasor0;
+#X obj 835 565 r fromOneShot;
+#X obj 835 733 s toVline;
+#X text 772 772 2) Return to start of sample, f 17;
+#X text 952 814 find out which direction we are going;
+#X obj 780 815 r fromSpdNB;
+#X obj 877 813 s toSpdNB;
+#X obj 728 909 route 0 1;
+#X obj 729 874 < 0;
+#X obj 700 981 s toStartPct;
+#X obj 668 953 t b b;
+#X obj 664 1039 f;
+#X obj 682 1011 r fromStartPct;
+#X obj 821 958 t b b;
+#X obj 817 1044 f;
+#X obj 853 986 s toEndPct;
+#X obj 835 1016 r fromEndPct;
+#X obj 217 630 t b b;
+#X obj 207 722 f;
+#X obj 517 645 t b b b b;
+#X obj 615 774 f;
+#X obj 475 672 t b b;
+#X obj 525 759 f;
+#X obj 835 590 t b b;
+#X obj 869 666 f;
+#X obj 932 760 t b b b;
+#X obj 763 840 f;
+#X obj 192 337 r toSetPhase;
+#X obj 712 1106 s toSetPhase;
 #X connect 0 0 2 0;
 #X connect 0 0 4 1;
 #X connect 0 0 53 0;
@@ -306,6 +369,60 @@ release time, f 36;
 #X connect 101 0 100 0;
 #X connect 102 0 103 0;
 #X connect 103 0 99 0;
+#X connect 107 0 134 0;
+#X connect 109 0 157 0;
+#X connect 112 0 158 1;
+#X connect 114 0 119 0;
+#X connect 115 0 114 0;
+#X connect 115 1 114 1;
+#X connect 116 0 3 0;
+#X connect 117 0 116 0;
+#X connect 118 0 17 0;
+#X connect 122 0 159 0;
+#X connect 126 0 160 1;
+#X connect 128 0 134 0;
+#X connect 129 0 128 0;
+#X connect 130 0 162 1;
+#X connect 133 0 56 0;
+#X connect 135 0 142 0;
+#X connect 137 0 164 1;
+#X connect 138 0 165 0;
+#X connect 139 0 138 0;
+#X connect 139 1 138 1;
+#X connect 141 0 163 0;
+#X connect 145 0 166 1;
+#X connect 147 0 150 0;
+#X connect 147 1 153 0;
+#X connect 148 0 147 0;
+#X connect 150 0 151 0;
+#X connect 150 1 149 0;
+#X connect 151 0 168 0;
+#X connect 152 0 151 1;
+#X connect 153 0 154 0;
+#X connect 153 1 155 0;
+#X connect 154 0 168 0;
+#X connect 156 0 154 1;
+#X connect 157 0 158 0;
+#X connect 157 1 111 0;
+#X connect 158 0 115 0;
+#X connect 158 0 107 0;
+#X connect 159 0 161 0;
+#X connect 159 1 127 0;
+#X connect 159 2 125 0;
+#X connect 159 3 123 0;
+#X connect 160 0 129 1;
+#X connect 161 0 162 0;
+#X connect 161 1 160 0;
+#X connect 162 0 129 0;
+#X connect 163 0 164 0;
+#X connect 163 1 136 0;
+#X connect 164 0 139 0;
+#X connect 164 0 135 0;
+#X connect 165 0 166 0;
+#X connect 165 1 146 0;
+#X connect 165 2 140 0;
+#X connect 166 0 148 0;
+#X connect 167 0 3 1;
 #X restore 13 446 pd subpatch;
 #X text 154 17 Load Sample, f 6;
 #X text 13 17 Start/Stop DSP, f 10;
@@ -313,15 +430,24 @@ release time, f 36;
 #X text 54 52 Speed;
 #X text 122 52 Start Pct;
 #X text 197 52 End Pct;
-#N canvas 371 44 813 380 theory 0;
-#X text 49 42 If you play a part of a sample or if the sample was not
-properly recorded \, you might get a click when the sample ends/restarts.
-Also \, being able to envelope your sample will be handy for other
-applications. Using the vline~ object will allow us to create a customizable
-adsr (or any style) envelope. Method: 1) Use threshold~ to detect when
-sample is looping back 2) Calculate num of samples for release and
-set the threshold for this 3) Schedule attack and sustain;
-#X restore 357 53 pd theory read me;
+#N canvas 502 59 759 564 theory 1;
+#X text 52 42 Method to start and stop looping sample;
+#X text 52 68 Stop:;
+#X text 52 94 1) Release envelope;
+#X text 52 120 2) Phasor frequency to 0;
+#X text 52 146 Start:;
+#X text 52 172 1) Phasor frequency to selected one;
+#X text 52 198 2) Attack envelope;
+#X text 52 224 One Shot Sample:;
+#X text 52 250 1) Stop looping sample if needed;
+#X text 52 276 2) Return sample to start point;
+#X text 52 302 3) Phasor frequency to selected one;
+#X text 52 328 4) Attack sample;
+#X text 52 354 5) Play to end point;
+#X text 52 380 6) Release envelope;
+#X text 52 16 Program the following sequences:, f 42;
+#X text 52 406 7) Phasor frequency 0;
+#X restore 471 11 pd theory read me;
 #X floatatom 12 114 10 0 100000 0 - toRel fromRel;
 #X floatatom 100 114 10 0 100000 0 - toAtk fromAtk;
 #X floatatom 187 114 10 0 100000 0 - toSus fromSus;
@@ -330,3 +456,9 @@ set the threshold for this 3) Schedule attack and sustain;
 #X text 97 95 atk;
 #X text 184 95 sus;
 #X text 264 95 decay;
+#X obj 206 19 bng 25 250 50 0 fromStopLoop toStopLoop empty 17 7 0
+10 -258113 -262144 -262144;
+#X text 233 14 Stop Loop, f 4;
+#X obj 270 19 bng 25 250 50 0 fromStartLoop toStartLoop empty 17 7
+0 10 -4034 -262144 -262144;
+#X text 297 14 Start Loop, f 5;
