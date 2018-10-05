@@ -1,4 +1,4 @@
-#N canvas 522 0 1398 1046 16;
+#N canvas 0 22 1440 818 16;
 #X obj 121 158 soundfiler;
 #X obj 121 55 openpanel;
 #X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
@@ -11,64 +11,50 @@
 #X obj 117 915 line~;
 #X msg 117 882 \$1 20;
 #X obj 72 1010 dac~, f 7;
-#X floatatom 121 248 15 0 0 0 - - -;
+#X floatatom 31 267 15 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
 #X array buf1L 1.23187e+06 float 2;
 #X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 634 561 graph;
-#X obj 566 509 unsig~ 50;
-#X obj 637 561 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 8148 1;
-#X msg 257 56 \; pd dsp \$1;
-#X obj 257 21 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
+#X restore 600 540 graph;
+#X obj 395 483 unsig~ 50;
+#X obj 603 540 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 25934 1;
+#X msg 234 53 \; pd dsp \$1;
+#X obj 234 18 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
 1;
-#X text 282 248 <-phasor frequency;
-#X obj 199 666 unsig~ 50;
-#X floatatom 199 703 15 0 0 0 - - -;
+#X text 192 267 <-phasor frequency;
+#X obj 137 625 unsig~ 50;
+#X floatatom 137 662 15 0 0 0 - - -;
 #X obj 117 781 loadbang;
 #X msg 117 814 1;
 #X obj 197 592 send~ toBuf1Graph;
-#X obj 566 475 receive~ toBuf1Graph;
-#X text 364 702 <-current sample index;
-#X text 298 22 <-start/stop DSP;
+#X obj 395 449 receive~ toBuf1Graph;
+#X text 297 655 <-current sample index, f 13;
+#X text 275 19 <-start/stop DSP;
 #N canvas 0 22 450 278 (subpatch) 0;
 #X array buf1R 1.23187e+06 float 2;
 #X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 634 761 graph;
-#X obj 637 761 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 8148 1;
+#X restore 600 740 graph;
+#X obj 603 740 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 25934 1;
 #X msg 121 121 read -resize \$1 buf1L buf1R;
 #X obj 46 740 tabread4~ buf1L;
 #X obj 215 740 tabread4~ buf1R;
 #X obj 184 963 *~;
 #X obj 33 435 f;
-#X floatatom 528 165 10 0 0 0 - - -;
+#X floatatom 462 155 10 0 0 0 - - -;
 #X obj 126 471 *;
-#X obj 528 402 t b f;
-#X obj 570 83 loadbang;
-#X msg 569 119 1;
-#X text 634 165 <-speed \, negative values play backwards;
-#N canvas 396 50 954 609 theory 0;
-#X text 110 95 To play a part of the sample \, you will have to have
-the phasor~ output index from sample x to sample y \, from start time
-to end time. Before it is multiplied by total number of samples \,
-the phasor signal is 0-1 \, deal with this part of the signal. You
-need to: 1)Calculate the total percentage of the sample part 2)The
-start percentage 3)Multiply the 0-1 signal from phasor~ by the pct
-of the sample part. For example if you are playing 25% of the sample
-the phasor~ signal (0-1) * 0.25 will output a signal from 0-0.25. 4)Add
-the start percentage so you begin at the right point. Finally \, you
-will need to adjust the phasor~ frequency \, because the frequency
-you need to read through the whole sample is not the same as reading
-through part of the sample;
-#X restore 518 26 pd theory Read Me;
+#X obj 462 392 t b f;
+#X obj 461 23 loadbang;
+#X msg 460 59 1;
+#X text 568 155 <-speed \, negative values play backwards;
 #X text 339 846 <-amp;
-#X floatatom 696 394 10 0 1 0 - - fromStartPct;
-#X floatatom 826 394 10 0 1 0 - - fromEndPct;
-#X text 694 363 Start Pct;
-#X text 823 362 End Pct;
-#X msg 637 119 0;
-#X text 666 83 <-initialize values at patch open;
+#X floatatom 665 242 10 0 1 0 - toStartPct fromStartPct;
+#X floatatom 795 242 10 0 1 0 - toEndPct fromEndPct;
+#X text 663 211 Start Pct;
+#X text 792 210 End Pct;
+#X msg 528 59 0;
+#X text 557 23 <-initialize values at patch open;
 #N canvas 570 405 1206 544 partialSample 0;
 #X obj 142 36 r fromStartPct;
 #X obj 403 40 r fromEndPct;
@@ -109,19 +95,32 @@ sample, f 61;
 #X connect 17 0 9 1;
 #X restore 126 550 pd partialSample;
 #X text 294 551 <-cmd/ctrl click me;
-#X obj 552 255 r fromPartPct;
-#X obj 551 323 t b f;
-#X obj 528 369 * 1;
-#X obj 552 289 expr 1/$f1;
-#X text 549 204 Multiply speed by reciprocal part percentage to play
-the partial sample at proper frequency, f 47;
-#X msg 699 118 1;
+#X obj 486 245 r fromPartPct;
+#X obj 485 313 t b f;
+#X obj 462 359 * 1;
+#X obj 486 279 expr 1/$f1;
+#X msg 590 58 1;
+#X obj 603 540 hsl 595 50 0 1 0 0 empty toStartPct empty -2 -8 0 10
+-262144 -4034 -1 25200 1;
+#X text 907 234 <-Use send/receive symbol fields under properties,
+f 27;
+#X obj 528 110 s toStartPct;
+#X obj 672 110 s toEndPct;
+#X obj 603 690 hsl 595 50 0 1 0 0 empty toEndPct empty -2 -8 0 10 -262144
+-4032 -1 29100 1;
+#X obj 603 490 hsl 595 25 0 1 0 0 toStartPct empty empty -2 -8 0 10
+-4034 -1 -1 25200 1;
+#X obj 603 515 hsl 595 25 0 1 0 0 toEndPct empty empty -2 -8 0 10 -4032
+-1 -1 29100 1;
+#X text 673 403 Use two sets of Hsliders \, 2 for visual markers and
+two as controllers to set start and end points of sample reference
+, f 44;
 #X connect 0 0 3 0;
 #X connect 0 0 5 1;
 #X connect 1 0 28 0;
 #X connect 2 0 1 0;
 #X connect 3 0 11 0;
-#X connect 4 0 47 0;
+#X connect 4 0 46 0;
 #X connect 5 0 18 0;
 #X connect 5 0 29 0;
 #X connect 5 0 30 0;
@@ -143,20 +142,20 @@ the partial sample at proper frequency, f 47;
 #X connect 30 0 31 0;
 #X connect 31 0 10 1;
 #X connect 32 0 34 0;
-#X connect 33 0 51 0;
+#X connect 33 0 50 0;
 #X connect 34 0 4 0;
 #X connect 35 0 32 0;
 #X connect 35 1 34 1;
 #X connect 36 0 37 0;
-#X connect 36 0 45 0;
-#X connect 36 0 54 0;
+#X connect 36 0 44 0;
+#X connect 36 0 52 0;
 #X connect 37 0 33 0;
-#X connect 45 0 41 0;
-#X connect 47 0 5 0;
-#X connect 47 0 22 0;
-#X connect 49 0 52 0;
-#X connect 50 0 51 0;
-#X connect 50 1 51 1;
-#X connect 51 0 35 0;
-#X connect 52 0 50 0;
-#X connect 54 0 42 0;
+#X connect 44 0 55 0;
+#X connect 46 0 5 0;
+#X connect 46 0 22 0;
+#X connect 48 0 51 0;
+#X connect 49 0 50 0;
+#X connect 49 1 50 1;
+#X connect 50 0 35 0;
+#X connect 51 0 49 0;
+#X connect 52 0 56 0;

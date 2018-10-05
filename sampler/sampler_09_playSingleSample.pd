@@ -1,0 +1,332 @@
+#N canvas 429 28 634 458 12;
+#X obj 125 17 bng 25 250 50 0 fromBangOpenpanel empty empty 17 7 0
+10 -260097 -260097 -260097;
+#X floatatom 13 71 5 0 1.5 0 - toAmp fromAmp;
+#X floatatom 12 143 15 0 0 0 - toPhasorFreq fromPhasorFreq;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1L 2.17088e+06 float 2;
+#X coords 0 1 2.17088e+06 -1 600 100 1 0 0;
+#X restore 12 238 graph;
+#X obj 15 258 hsl 595 60 0 1 0 0 empty toCsrL empty -2 -8 0 10 -262144
+-1 -1 32941 1;
+#X obj 93 17 tgl 25 0 fromDSPtog empty empty 17 7 0 10 -257985 -1 -1
+0 1;
+#X text 121 142 <-phasor frequency;
+#X floatatom 12 166 15 0 0 0 - toCurrSamp -;
+#X text 121 164 <-current sample index;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1R 2.17088e+06 float 2;
+#X coords 0 1 2.17088e+06 -1 600 100 1 0 0;
+#X restore 12 338 graph;
+#X obj 15 360 hsl 595 60 0 1 0 0 empty toCsrR empty -2 -8 0 10 -262144
+-1 -1 32941 1;
+#X floatatom 56 71 8 0 0 0 - toSpdNB fromSpdNB;
+#X floatatom 124 71 8 0 1 0 - toStartPct fromStartPct;
+#X floatatom 199 71 8 0 1 0 - toEndPct fromEndPct;
+#X obj 15 238 hsl 595 20 0 1 0 0 empty toStartPct empty -2 -8 0 10
+-262144 -4034 -1 23500 1;
+#X obj 15 318 hsl 595 20 0 1 0 0 empty toEndPct empty -2 -8 0 10 -262144
+-4032 -1 34900 1;
+#X obj 15 188 hsl 595 25 0 1 0 0 toStartPct empty empty -2 -8 0 10
+-4034 -1 -1 23500 1;
+#X obj 15 213 hsl 595 25 0 1 0 0 toEndPct empty empty -2 -8 0 10 -4032
+-1 -1 34900 1;
+#N canvas 96 22 1766 1031 subpatch 0;
+#X obj 87 197 soundfiler;
+#X obj 83 121 openpanel;
+#X obj 50 288 expr 44100 / $f1;
+#X obj 138 368 phasor~;
+#X obj 114 436 *~;
+#X obj 67 926 *~;
+#X obj 63 955 dac~, f 7;
+#X obj 257 324 unsig~ 50;
+#X msg 196 119 \; pd dsp \$1;
+#X obj 288 501 unsig~ 50;
+#X msg 566 43 1;
+#X obj 151 430 send~ toBuf1Graph;
+#X obj 257 299 receive~ toBuf1Graph;
+#X msg 87 160 read -resize \$1 buf1L buf1R;
+#X obj 49 526 tabread4~ buf1L;
+#X obj 168 526 tabread4~ buf1R;
+#X obj 145 925 *~;
+#X obj 138 317 f;
+#X obj 137 341 *;
+#X obj 202 305 t b f;
+#X obj 302 3 loadbang;
+#X msg 302 44 1;
+#X msg 382 43 0;
+#N canvas 714 68 1206 583 partialSample 0;
+#X obj 142 36 r fromStartPct;
+#X obj 403 40 r fromEndPct;
+#X obj 209 243 expr if($f2>$f1 \, $f2-$f1 \, $f1-$f2);
+#X floatatom 209 280 5 0 0 0 - - -;
+#X obj 403 77 t b f;
+#X text 470 76 <-expr will only output with input to left inlet. Use
+trigger to force output with input to right inlet., f 37;
+#X text 562 244 <-use expr and an if statement to insure that total
+percentage is always positive, f 41;
+#X obj 171 345 *~;
+#X text 213 345 <-multiply phasor 0-1 sig by percentage of the partial
+sample, f 61;
+#X obj 109 417 +~;
+#X text 151 418 <-add start percentage to start at the right point
+;
+#X obj 108 477 outlet~ adjusted phasor;
+#X obj 21 3 inlet~ phasor 0-1;
+#X text 350 475 <-use inlet~/outlet~ for signals;
+#X obj 266 313 s fromPartPct;
+#X text 411 314 <-send to adjust phasor frequency;
+#X text 394 161 <-use expr and an if statement to correct start point
+;
+#X obj 41 162 expr if($f2>$f1 \, $f1 \, $f2);
+#X obj 22 534 s adjStartPct;
+#X text 121 535 <-already did the work here to make sure which is the
+start point;
+#X connect 0 0 2 0;
+#X connect 0 0 17 0;
+#X connect 1 0 4 0;
+#X connect 2 0 3 0;
+#X connect 3 0 7 1;
+#X connect 3 0 14 0;
+#X connect 4 0 2 0;
+#X connect 4 0 17 0;
+#X connect 4 1 2 1;
+#X connect 4 1 17 1;
+#X connect 7 0 9 0;
+#X connect 9 0 11 0;
+#X connect 12 0 7 0;
+#X connect 17 0 9 1;
+#X connect 17 0 18 0;
+#X restore 142 399 pd partialSample;
+#X obj 216 256 t b f;
+#X obj 203 280 * 1;
+#X obj 216 230 expr 1/$f1;
+#X msg 483 41 1;
+#X obj 382 67 s toStartPct;
+#X obj 483 71 s toEndPct;
+#X obj 302 68 s toSpdNB;
+#X obj 204 183 r fromSpdNB;
+#X obj 289 528 s toCurrSamp;
+#X obj 567 71 s toAmp;
+#X obj 459 608 r fromAmp;
+#X obj 257 352 s toCsrL;
+#X obj 321 352 s toCsrR;
+#X obj 194 81 r fromDSPtog;
+#X obj 46 80 r fromBangOpenpanel;
+#X obj 217 205 r fromPartPct;
+#X obj 28 313 s toPhasorFreq;
+#X obj 585 511 threshold~;
+#X text 664 506 <-threshold~ is reading from the current sample index
+and will detect when a certain threshold is reached;
+#X text 261 390 <-look here for a few adjustments, f 19;
+#X obj 871 108 r adjStartPct;
+#X obj 875 187 +;
+#X obj 914 159 t b f;
+#X obj 914 133 r fromPartPct;
+#X text 870 83 calculates end percentage;
+#X obj 525 178 r adjStartPct;
+#X obj 43 257 s fromTotalSamps;
+#X obj 767 221 *;
+#X obj 734 187 r fromTotalSamps;
+#X obj 46 225 f;
+#X obj 626 24 delay 5;
+#X text 798 220 <-multiple by total samples to get threshold;
+#X obj 304 897 vline~;
+#X obj 379 643 r fromRel;
+#X obj 543 616 r fromAtk;
+#X obj 619 616 r fromSus;
+#X obj 708 616 r fromDecay;
+#X text 288 980 vline~ takes triplets: destination \, time \, initial
+delay;
+#X obj 279 724 bng 15 250 50 0 empty toBangEnv empty 17 7 0 10 -262144
+-1 -1;
+#X text 606 860 have to fudge order because the first inlet in pack
+above triggers envelope and we only want to trigger them manually or
+on amplitude changes;
+#X msg 405 849 0 \$2 \, \$1 \$3 \$4 \, \$5 \$6 \$7;
+#X text 607 815 \$2-release time \, \$1 amp level \, \$3 attack time
+\, \$4 attack delay \, \$5 sustain level \, \$6 decay time \, \$7 sustain
+delay;
+#X obj 551 643 t b f;
+#X obj 381 682 + 100;
+#X text 429 682 <-attack delay is release + 100ms to have noticable
+attack;
+#X obj 679 767 + 200;
+#X text 726 768 <-decay delay is release time + attack time + 100ms
+;
+#X obj 409 819 pack 1 100 15 200 1 0 5000;
+#X obj 572 720 * 1;
+#X text 285 929 change line~ to vline~ object to do a proper adsr envelope.
+Because we are doing threshold~ to detect the end of a sample \, we
+will release first then attack and sustain;
+#X text 603 720 multiply sustain level by amplitude so you get percentage
+of total amp;
+#X obj 472 640 t b f;
+#X obj 586 540 s toBangEnv;
+#X obj 1287 89 samplerate~;
+#X obj 1254 8 r fromRel;
+#X obj 1254 37 / 1000;
+#X obj 1257 115 * 1;
+#X obj 1255 62 t f b;
+#X text 1128 63 calculate release time in samples from milliseconds
+, f 15;
+#X msg 588 448 set \$1 0 \$1 0;
+#X obj 613 207 *;
+#X obj 672 129 r fromSpdNB;
+#X obj 605 242 t b f;
+#X obj 508 471 *~ 1;
+#X obj 455 302 expr if($f1<0 \, -1 \, 1);
+#X obj 672 155 t f b f;
+#X msg 708 36 100;
+#X obj 708 60 s toRel;
+#X msg 769 34 15;
+#X obj 768 58 s toAtk;
+#X obj 831 58 s toSus;
+#X msg 832 34 1;
+#X msg 892 37 0;
+#X obj 892 61 s toDecay;
+#X obj 578 376 expr if($f3<0 \, ($f2+$f4)* -1 \, $f1-$f4);
+#X obj 1131 259 t b f;
+#X obj 1278 177 t b f;
+#X obj 1277 147 r fromSpdNB;
+#X obj 1230 210 * 1;
+#X obj 1195 240 expr abs($f1);
+#X text 357 133 when going backwards \, threshold needs to read everything
+as negative values. Make the current sample index negative and make
+the threshold negative, f 23;
+#X text 858 374 subtract release time (in samples) to start envelope
+before sample ends, f 23;
+#X text 1367 144 Have to multiply by speed to get proper duration of
+release time, f 36;
+#X connect 0 0 2 0;
+#X connect 0 0 4 1;
+#X connect 0 0 53 0;
+#X connect 1 0 13 0;
+#X connect 2 0 17 0;
+#X connect 2 0 40 0;
+#X connect 3 0 23 0;
+#X connect 4 0 9 0;
+#X connect 4 0 14 0;
+#X connect 4 0 15 0;
+#X connect 4 0 87 0;
+#X connect 5 0 6 0;
+#X connect 7 0 35 0;
+#X connect 7 0 36 0;
+#X connect 9 0 32 0;
+#X connect 10 0 33 0;
+#X connect 12 0 7 0;
+#X connect 13 0 0 0;
+#X connect 14 0 5 0;
+#X connect 15 0 16 0;
+#X connect 16 0 6 1;
+#X connect 17 0 18 0;
+#X connect 18 0 3 0;
+#X connect 19 0 17 0;
+#X connect 19 1 18 1;
+#X connect 20 0 21 0;
+#X connect 20 0 22 0;
+#X connect 20 0 27 0;
+#X connect 20 0 10 0;
+#X connect 20 0 54 0;
+#X connect 20 0 90 0;
+#X connect 20 0 96 0;
+#X connect 20 0 95 0;
+#X connect 20 0 92 0;
+#X connect 21 0 30 0;
+#X connect 22 0 28 0;
+#X connect 23 0 4 0;
+#X connect 23 0 11 0;
+#X connect 24 0 25 0;
+#X connect 24 1 25 1;
+#X connect 25 0 19 0;
+#X connect 26 0 24 0;
+#X connect 27 0 29 0;
+#X connect 31 0 25 0;
+#X connect 34 0 71 0;
+#X connect 34 0 75 0;
+#X connect 37 0 8 0;
+#X connect 38 0 1 0;
+#X connect 39 0 26 0;
+#X connect 41 0 76 0;
+#X connect 44 0 45 0;
+#X connect 45 0 51 0;
+#X connect 46 0 45 0;
+#X connect 46 1 45 1;
+#X connect 47 0 46 0;
+#X connect 49 0 84 0;
+#X connect 51 0 98 0;
+#X connect 52 0 51 1;
+#X connect 52 0 84 1;
+#X connect 53 0 50 0;
+#X connect 54 0 53 0;
+#X connect 56 0 5 1;
+#X connect 56 0 16 1;
+#X connect 57 0 67 0;
+#X connect 57 0 71 1;
+#X connect 58 0 66 0;
+#X connect 58 0 71 2;
+#X connect 59 0 72 0;
+#X connect 60 0 71 5;
+#X connect 62 0 71 0;
+#X connect 64 0 56 0;
+#X connect 66 0 69 0;
+#X connect 66 1 69 1;
+#X connect 67 0 69 0;
+#X connect 67 0 71 3;
+#X connect 69 0 71 6;
+#X connect 71 0 64 0;
+#X connect 72 0 71 4;
+#X connect 75 0 72 0;
+#X connect 75 1 72 1;
+#X connect 77 0 80 1;
+#X connect 78 0 79 0;
+#X connect 79 0 81 0;
+#X connect 80 0 102 0;
+#X connect 81 0 80 0;
+#X connect 81 1 77 0;
+#X connect 83 0 41 0;
+#X connect 84 0 86 0;
+#X connect 85 0 89 0;
+#X connect 86 0 98 0;
+#X connect 86 1 98 1;
+#X connect 87 0 41 0;
+#X connect 88 0 87 1;
+#X connect 89 0 88 0;
+#X connect 89 1 98 0;
+#X connect 89 2 98 2;
+#X connect 90 0 91 0;
+#X connect 92 0 93 0;
+#X connect 95 0 94 0;
+#X connect 96 0 97 0;
+#X connect 98 0 83 0;
+#X connect 99 0 98 0;
+#X connect 99 1 98 3;
+#X connect 100 0 102 0;
+#X connect 100 1 102 1;
+#X connect 101 0 100 0;
+#X connect 102 0 103 0;
+#X connect 103 0 99 0;
+#X restore 13 446 pd subpatch;
+#X text 154 17 Load Sample, f 6;
+#X text 13 17 Start/Stop DSP, f 10;
+#X text 11 52 Amp;
+#X text 54 52 Speed;
+#X text 122 52 Start Pct;
+#X text 197 52 End Pct;
+#N canvas 371 44 813 380 theory 0;
+#X text 49 42 If you play a part of a sample or if the sample was not
+properly recorded \, you might get a click when the sample ends/restarts.
+Also \, being able to envelope your sample will be handy for other
+applications. Using the vline~ object will allow us to create a customizable
+adsr (or any style) envelope. Method: 1) Use threshold~ to detect when
+sample is looping back 2) Calculate num of samples for release and
+set the threshold for this 3) Schedule attack and sustain;
+#X restore 357 53 pd theory read me;
+#X floatatom 12 114 10 0 100000 0 - toRel fromRel;
+#X floatatom 100 114 10 0 100000 0 - toAtk fromAtk;
+#X floatatom 187 114 10 0 100000 0 - toSus fromSus;
+#X floatatom 268 114 10 0 100000 0 - toDecay fromDecay;
+#X text 9 95 rel;
+#X text 97 95 atk;
+#X text 184 95 sus;
+#X text 264 95 decay;
