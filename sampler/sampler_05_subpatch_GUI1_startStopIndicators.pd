@@ -1,0 +1,225 @@
+#N canvas 0 27 1919 1031 16;
+#X obj 249 69 soundfiler;
+#X obj 249 -13 openpanel;
+#X obj 248 -48 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097
+-260097 -260097;
+#X obj 262 171 expr 44100 / $f1;
+#X obj 320 919 phasor~;
+#X obj 255 1344 *~;
+#X obj 178 1597 *~;
+#X floatatom 522 1477 5 0 1.5 0 - - -;
+#X obj 522 1544 line~;
+#X msg 522 1511 \$1 20;
+#X obj 178 1629 dac~, f 7;
+#X floatatom 262 203 10 0 0 0 - - -;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1LQZ1 571233 float 2;
+#X coords 0 1 571233 -1 600 100 1 0 0;
+#X restore 1266 478 graph;
+#X obj 1269 498 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 30324 1;
+#X msg 362 -14 \; pd dsp \$1;
+#X obj 362 -49 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
+1;
+#X floatatom 265 1463 10 0 0 0 - - -;
+#X obj 522 1410 loadbang;
+#X msg 522 1443 1;
+#X obj 195 102 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 1020 437 pd sigasfloat;
+#X obj 1020 407 receive~ toBuf1GraphQZ1;
+#X obj 195 136 t b f f;
+#X obj 353 759 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 265 1432 pd sigasfloat;
+#X text 403 -48 DSP;
+#X text 275 -47 Load SF;
+#X text 364 203 Phasor Freq;
+#X text 369 1462 Curr Samp;
+#X text 576 1477 Amp;
+#X obj 377 1157 s~ toBuf1GraphQZ1;
+#X msg 249 36 read -resize \$1 buf1LQZ1 buf1RQZ1;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1RQZ1 571233 float 2;
+#X coords 0 1 571233 -1 600 100 1 0 0;
+#X restore 1266 578 graph;
+#X obj 1269 598 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 30324 1;
+#X obj 35 1520 tabread4~ buf1LQZ1;
+#X obj 255 1520 tabread4~ buf1RQZ1;
+#X obj 245 1597 *~;
+#X floatatom 309 318 8 0 0 0 - - -;
+#X text 396 320 Speed;
+#X obj 390 710 t b f;
+#X obj 320 863 *;
+#X obj 309 254 loadbang;
+#X msg 309 284 1;
+#X floatatom 601 191 8 0 0 0 - toStartPctQZ1 fromStartPctQZ1;
+#X floatatom 714 191 8 0 0 0 - toEndPctQZ1 fromEndPctQZ1;
+#X text 598 165 Start Pct;
+#X text 711 164 End Pct;
+#X obj 724 422 -;
+#X floatatom 851 491 5 0 0 0 - - -;
+#X obj 484 990 *~;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 536 1051 pd sigasfloat;
+#X floatatom 536 1085 5 0 0 0 - - -;
+#X obj 366 1060 +~;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 181 1123 pd sigasfloat;
+#X floatatom 181 1157 5 0 0 0 - - -;
+#X obj 630 39 loadbang;
+#X msg 629 75 0;
+#X msg 679 72 1;
+#X obj 647 385 t b f f;
+#X obj 672 492 t b f f;
+#X obj 437 812 / 1;
+#X obj 378 678 f;
+#X obj 545 351 expr min($f1 \, $f2);
+#X obj 748 351 expr max($f1 \, $f2);
+#X obj 723 453 expr abs($f1);
+#X obj 796 310 t b f;
+#X text 958 -36 For most of the GUI objects \, under properties (right-click)
+you will have a send symbol and a receive symbol field. These will
+allow you to use the GUI object as if it is connected to a send and
+receive object. Remember to use a unique identifier (in this case QZ1)
+\, this will save a lot of trouble later.;
+#X obj 573 278 r fromStartPctQZ1;
+#X obj 795 277 r fromEndPctQZ1;
+#X obj 548 122 s toStartPctQZ1;
+#X obj 722 122 s toEndPctQZ1;
+#X text 808 163 filled out the send/receive symbol fields under properties
+for both of these number boxes. added the send objects above and the
+receive objects below so the data flow is exactly the same;
+#X obj 1269 438 hsl 595 20 0 1 0 0 toStartPctQZ1 empty empty -2 -8
+0 10 -4034 -260097 -1 28500 1;
+#X obj 1269 458 hsl 595 20 0 1 0 0 toEndPctQZ1 empty empty -2 -8 0
+10 -4032 -257985 -1 31500 1;
+#X text 1260 340 Make an additional 2 Hsliders for graphic display
+and put them next to the waveform;
+#X obj 1269 478 hsl 595 20 0 1 0 0 empty toStartPctQZ1 empty -2 -8
+0 10 -262144 -4034 -1 28500 1;
+#X obj 1269 558 hsl 595 20 0 1 0 0 empty toEndPctQZ1 empty -2 -8 0
+10 -262144 -4032 -1 31500 1;
+#X text 1259 266 Make 2 Hsliders to mark the start and endpoints. These
+will send to the start pct and end pct number boxes. Make sure their
+ranges are 0-1 as well.;
+#X connect 0 0 19 0;
+#X connect 1 0 31 0;
+#X connect 2 0 1 0;
+#X connect 3 0 11 0;
+#X connect 4 0 49 0;
+#X connect 5 0 24 0;
+#X connect 5 0 34 0;
+#X connect 5 0 35 0;
+#X connect 6 0 10 0;
+#X connect 7 0 9 0;
+#X connect 8 0 6 1;
+#X connect 8 0 36 1;
+#X connect 9 0 8 0;
+#X connect 11 0 23 1;
+#X connect 15 0 14 0;
+#X connect 17 0 18 0;
+#X connect 18 0 7 0;
+#X connect 19 0 22 0;
+#X connect 20 0 13 0;
+#X connect 20 0 33 0;
+#X connect 21 0 20 0;
+#X connect 22 0 23 0;
+#X connect 22 1 5 1;
+#X connect 22 2 3 0;
+#X connect 23 0 40 0;
+#X connect 24 0 16 0;
+#X connect 31 0 0 0;
+#X connect 34 0 6 0;
+#X connect 35 0 36 0;
+#X connect 36 0 10 1;
+#X connect 37 0 61 0;
+#X connect 39 0 23 0;
+#X connect 39 1 60 0;
+#X connect 40 0 4 0;
+#X connect 41 0 42 0;
+#X connect 42 0 37 0;
+#X connect 47 0 64 0;
+#X connect 49 0 50 0;
+#X connect 49 0 52 0;
+#X connect 50 0 51 0;
+#X connect 52 0 53 0;
+#X connect 52 0 5 0;
+#X connect 52 0 30 0;
+#X connect 53 0 54 0;
+#X connect 55 0 56 0;
+#X connect 55 0 57 0;
+#X connect 56 0 69 0;
+#X connect 57 0 70 0;
+#X connect 58 0 47 0;
+#X connect 58 1 52 1;
+#X connect 58 2 47 1;
+#X connect 59 0 61 0;
+#X connect 59 1 60 1;
+#X connect 59 2 49 1;
+#X connect 60 0 40 1;
+#X connect 61 0 39 0;
+#X connect 62 0 58 0;
+#X connect 63 0 47 0;
+#X connect 64 0 48 0;
+#X connect 64 0 59 0;
+#X connect 65 0 63 0;
+#X connect 65 0 62 0;
+#X connect 65 1 63 1;
+#X connect 65 1 62 1;
+#X connect 67 0 62 0;
+#X connect 67 0 63 0;
+#X connect 68 0 65 0;

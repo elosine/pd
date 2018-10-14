@@ -1,30 +1,28 @@
-#N canvas 128 2 1723 1046 16;
-#X obj 121 158 soundfiler;
-#X obj 121 55 openpanel;
-#X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
+#N canvas 54 22 1783 1016 16;
+#X obj 398 167 soundfiler;
+#X obj 398 64 openpanel;
+#X obj 397 29 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
 -260097;
-#X obj 121 440 expr 44100 / $f1;
-#X obj 121 514 phasor~;
-#X obj 54 579 *~;
-#X obj 143 934 *~;
-#X floatatom 573 821 5 0 1.5 0 - - -;
-#X obj 573 888 line~;
-#X msg 573 855 \$1 20;
-#X obj 142 980 dac~, f 7;
-#X floatatom 121 481 15 0 0 0 - - -;
+#X obj 398 416 expr 44100 / $f1;
+#X obj 398 523 phasor~;
+#X obj 251 608 *~;
+#X obj 420 943 *~;
+#X floatatom 853 847 5 0 1.5 0 - - -;
+#X obj 853 914 line~;
+#X msg 853 881 \$1 20;
+#X obj 419 989 dac~, f 7;
+#X floatatom 391 461 15 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1 1.23187e+06 float 2;
-#X coords 0 1 1.23187e+06 -1 600 300 1 0 0;
-#X restore 869 404 graph;
-#X obj 870 349 unsig~ 50;
-#X obj 873 404 hsl 595 300 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 0 1;
-#X msg 458 59 \; pd dsp \$1;
-#X obj 458 24 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
+#X array buf1 963254 float 2;
+#X coords 0 1 963254 -1 600 300 1 0 0;
+#X restore 1146 413 graph;
+#X obj 1149 413 hsl 595 300 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 58523 1;
+#X msg 726 62 \; pd dsp \$1;
+#X obj 726 27 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
 1;
-#X text 229 159 <-stores chosen soundfile as an array aka buffer;
-#X text 130 186 ^ outputs total number of samples in buffer;
-#X text 147 224 The phasor~ object generates a sawtooth waveform. IOW
+#X text 506 168 <-stores chosen soundfile as an array aka buffer;
+#X text 424 233 The phasor~ object generates a sawtooth waveform. IOW
 \, it generates a line from 0-1 and then hops back to 0 It takes a
 frequency argument: the number of cycles (0-1 \, jump to 0) per second.
 So \, if we want to play the sample back at normal speed \, we have
@@ -33,54 +31,100 @@ outputs the total number of samples. If we take the sample rate (44
 \, 100 samples/sec) and divide it by the total number of samples \,
 we will have the frequency necessary to play the sample back at normal
 speed., f 65;
-#X text 282 481 <-phasor frequency;
-#X msg 121 111 read -resize \$1 buf1;
-#X text 99 580 <- Create an Indexer to the buffer phasor~ outputs a
-number from 0-1. We multiply it by the total number of samples in the
-sample buffer. It now indexes which sample we are playing at any given
-moment.;
-#X obj 68 704 unsig~ 50;
-#X floatatom 68 741 15 0 0 0 - - -;
-#X obj 573 754 loadbang;
-#X msg 573 787 1;
-#X obj 141 549 send~ toBuf1Graph;
-#X obj 870 315 receive~ toBuf1Graph;
-#X text 868 240 The Array object graphs an array. There is a horziontal
+#X text 545 466 <-phasor frequency;
+#X msg 398 120 read -resize \$1 buf1;
+#X floatatom 345 750 15 0 0 0 - - -;
+#X obj 853 780 loadbang;
+#X msg 853 813 1;
+#X text 1114 248 The Array object graphs an array. There is a horziontal
 slider overlayed that acts as a cursor.;
-#X text 1088 303 The Hslider is receiving the current index;
-#X text 233 740 <-current sample index;
-#X text 499 25 <-start/stop DSP;
-#X obj 30 788 tabread4~ buf1;
-#X text 978 346 <-samples a signal \, outputs a float needs iemlib
-;
-#X text 571 693 Amplitude line~ creates a short envelope to avoid clicks
+#X text 1354 301 The Hslider is receiving the current index;
+#X text 510 749 <-current sample index;
+#X text 767 28 <-start/stop DSP;
+#X obj 265 840 tabread4~ buf1;
+#X text 851 719 Amplitude line~ creates a short envelope to avoid clicks
 , f 26;
-#X text 183 788 <-The tabread4~ object reads the buffer at the index
+#X text 418 840 <-The tabread4~ object reads the buffer at the index
 point and outputs as audio signal, f 30;
-#X text 631 823 <-change amplitude here;
-#X text 224 51 <-opens dialog box to choose sample;
-#X text 335 115 <-msg to soundfiler to open chosen soundfile and store
+#X text 911 849 <-change amplitude here;
+#X text 501 60 <-opens dialog box to choose sample, f 18;
+#X text 612 124 <-msg to soundfiler to open chosen soundfile and store
 in 'buf1', f 37;
-#X connect 0 0 3 0;
-#X connect 0 0 5 1;
-#X connect 1 0 21 0;
+#X text 569 410 sample rate/total number of samples will give you the
+correct frequency for phasor to play back the sample at regular speed
+, f 43;
+#X text 303 602 <- Create an Indexer to the buffer. phasor~ outputs
+a number from 0-1. We multiply it by the total number of samples in
+the sample buffer. It now indexes which sample we are playing at any
+given moment.;
+#X obj 264 221 f;
+#X text 78 71 the float object will store the total number of samples
+in the soundfile for future use. A number in the left inlet stores
+the number and outputs the number, f 24;
+#X text 20 267 trigger outputs the input in a particular order right
+to left, f 23;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 1117 356 pd sigasfloat;
+#X text 1255 355 <-samples a signal \, outputs a float;
+#X obj 1117 312 receive~ toBuf1GraphQZ1;
+#X text 1358 327 each;
+#X obj 264 263 t b f f;
+#X obj 353 489 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 345 710 pd sigasfloat;
+#X obj 418 558 send~ toBuf1GraphQZ1;
+#X text 407 195 ^ outputs total number of samples in buffer when a
+sound file is chosen;
+#X connect 0 0 35 0;
+#X connect 1 0 19 0;
 #X connect 2 0 1 0;
 #X connect 3 0 11 0;
 #X connect 4 0 5 0;
-#X connect 4 0 27 0;
-#X connect 5 0 23 0;
-#X connect 5 0 33 0;
+#X connect 4 0 45 0;
+#X connect 5 0 27 0;
+#X connect 5 0 44 0;
 #X connect 6 0 10 0;
 #X connect 6 0 10 1;
 #X connect 7 0 9 0;
 #X connect 8 0 6 1;
 #X connect 9 0 8 0;
-#X connect 11 0 4 0;
-#X connect 13 0 14 0;
-#X connect 16 0 15 0;
-#X connect 21 0 0 0;
-#X connect 23 0 24 0;
-#X connect 25 0 26 0;
-#X connect 26 0 7 0;
-#X connect 28 0 13 0;
-#X connect 33 0 6 0;
+#X connect 11 0 43 1;
+#X connect 15 0 14 0;
+#X connect 19 0 0 0;
+#X connect 21 0 22 0;
+#X connect 22 0 7 0;
+#X connect 27 0 6 0;
+#X connect 35 0 42 0;
+#X connect 38 0 13 0;
+#X connect 40 0 38 0;
+#X connect 42 0 43 0;
+#X connect 42 1 5 1;
+#X connect 42 2 3 0;
+#X connect 43 0 4 0;
+#X connect 44 0 20 0;

@@ -1,78 +1,120 @@
-#N canvas 128 2 1723 1046 16;
-#X obj 121 158 soundfiler;
-#X obj 121 55 openpanel;
-#X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
+#N canvas 54 22 1783 1016 16;
+#X obj 399 168 soundfiler;
+#X obj 399 86 openpanel;
+#X obj 398 51 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
 -260097;
-#X obj 121 207 expr 44100 / $f1;
-#X obj 121 281 phasor~;
-#X obj 54 346 *~;
-#X obj 98 793 *~;
-#X floatatom 106 600 5 0 1.5 0 - - -;
-#X obj 106 667 line~;
-#X msg 106 634 \$1 20;
-#X obj 97 839 dac~, f 7;
-#X floatatom 121 248 15 0 0 0 - - -;
+#X obj 412 270 expr 44100 / $f1;
+#X obj 385 366 phasor~;
+#X obj 336 420 *~;
+#X obj 259 647 *~;
+#X floatatom 621 502 5 0 1.5 0 - - -;
+#X obj 621 569 line~;
+#X msg 621 536 \$1 20;
+#X obj 259 693 dac~, f 7;
+#X floatatom 412 302 10 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1L 1.23187e+06 float 2;
-#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 641 345 graph;
-#X obj 573 293 unsig~ 50;
-#X obj 644 345 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 25862 1;
-#X msg 458 59 \; pd dsp \$1;
-#X obj 458 24 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 1
+#X array buf1LQZ1 1.23187e+06 float 2;
+#X coords 0 1 1.23187e+06 -1 600 100 1 0 0;
+#X restore 811 378 graph;
+#X obj 814 398 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X msg 512 85 \; pd dsp \$1;
+#X obj 512 50 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
 1;
-#X text 282 248 <-phasor frequency;
-#X obj 183 386 unsig~ 50;
-#X floatatom 183 423 15 0 0 0 - - -;
-#X obj 106 533 loadbang;
-#X msg 106 566 1;
-#X obj 141 316 send~ toBuf1Graph;
-#X obj 573 259 receive~ toBuf1Graph;
-#X text 348 422 <-current sample index;
-#X text 499 25 <-start/stop DSP;
-#X text 162 598 <-change amplitude here;
-#N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1R 1.23187e+06 float 2;
-#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 641 545 graph;
-#X obj 644 545 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 25862 1;
-#X msg 121 121 read -resize \$1 buf1L buf1R;
-#X text 652 205 Add an additional 'Array' object to graph right channel.
-Takes same input to Hslider., f 44;
-#X text 406 121 <-add an additional argument for both channels - buf1L
-and buf1R, f 32;
-#X text 50 467 Add another tabread4~ object 'buf1R', f 38;
-#X obj 35 492 tabread4~ buf1L;
-#X obj 204 492 tabread4~ buf1R;
-#X obj 210 793 *~;
-#X text 251 792 <-multiple by amp and send to channel 2 of the dac~
+#X floatatom 364 488 10 0 0 0 - - -;
+#X obj 621 435 loadbang;
+#X msg 621 468 1;
+#X obj 345 201 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 790 327 pd sigasfloat;
+#X obj 790 297 receive~ toBuf1GraphQZ1;
+#X obj 345 235 t b f f;
+#X obj 385 334 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 364 457 pd sigasfloat;
+#X text 346 523 Add another tabread4~ object 'buf1R', f 21;
+#X text 374 647 <-multiple by amp and send to channel 2 of the dac~
 ;
-#X connect 0 0 3 0;
-#X connect 0 0 5 1;
-#X connect 1 0 29 0;
+#X text 553 51 DSP;
+#X text 425 52 Load SF;
+#X text 514 302 Phasor Freq;
+#X text 468 487 Curr Samp;
+#X text 675 502 Amp;
+#X obj 395 420 s~ toBuf1GraphQZ1;
+#X text 866 15 The addition of QZ1 after all the send and receive objects
+and after the buffer names is for later when we will want to make multiple
+samplers \, we will have to rename all the send and receives and the
+buffer names to be unique for that instant of sampler;
+#X msg 399 135 read -resize \$1 buf1LQZ1 buf1RQZ1;
+#X text 738 132 <-add an additional argument for both channels - buf1L
+and buf1R soundfiler will try to load both channels of a stereo file
+if they exsist or will just load the one mono channel, f 32;
+#N canvas 0 22 450 278 (subpatch) 0;
+#X array buf1RQZ1 1.23187e+06 float 2;
+#X coords 0 1 1.23187e+06 -1 600 100 1 0 0;
+#X restore 811 478 graph;
+#X obj 814 498 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 0 1;
+#X text 1046 298 Add an additional 'Array' object to graph right channel.
+Change the Array names to buf1LQZ1and buf1RQZ1. Takes same input to
+Hslider from r~ toBuf1GraphQZ1., f 44;
+#X obj 116 570 tabread4~ buf1LQZ1;
+#X obj 336 570 tabread4~ buf1RQZ1;
+#X obj 326 647 *~;
+#X connect 0 0 19 0;
+#X connect 1 0 34 0;
 #X connect 2 0 1 0;
 #X connect 3 0 11 0;
 #X connect 4 0 5 0;
-#X connect 4 0 22 0;
-#X connect 5 0 18 0;
-#X connect 5 0 33 0;
-#X connect 5 0 34 0;
+#X connect 4 0 32 0;
+#X connect 5 0 24 0;
+#X connect 5 0 39 0;
+#X connect 5 0 40 0;
 #X connect 6 0 10 0;
 #X connect 7 0 9 0;
 #X connect 8 0 6 1;
-#X connect 8 0 35 1;
+#X connect 8 0 41 1;
 #X connect 9 0 8 0;
-#X connect 11 0 4 0;
-#X connect 13 0 14 0;
-#X connect 13 0 28 0;
-#X connect 16 0 15 0;
-#X connect 18 0 19 0;
-#X connect 20 0 21 0;
-#X connect 21 0 7 0;
-#X connect 23 0 13 0;
-#X connect 29 0 0 0;
-#X connect 33 0 6 0;
-#X connect 34 0 35 0;
-#X connect 35 0 10 1;
+#X connect 11 0 23 1;
+#X connect 15 0 14 0;
+#X connect 17 0 18 0;
+#X connect 18 0 7 0;
+#X connect 19 0 22 0;
+#X connect 20 0 13 0;
+#X connect 20 0 37 0;
+#X connect 21 0 20 0;
+#X connect 22 0 23 0;
+#X connect 22 1 5 1;
+#X connect 22 2 3 0;
+#X connect 23 0 4 0;
+#X connect 24 0 16 0;
+#X connect 34 0 0 0;
+#X connect 39 0 6 0;
+#X connect 40 0 41 0;
+#X connect 41 0 10 1;

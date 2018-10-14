@@ -1,0 +1,16 @@
+#N canvas 478 160 570 403 10;
+#X obj 273 214 soundfiler;
+#X obj 273 133 openpanel;
+#X obj 246 272 f;
+#X obj 273 33 r fromLoadsamp6;
+#X msg 273 171 read -resize \$1 samp6L samp6R;
+#X obj 293 70 array define samp6L;
+#X obj 293 94 array define samp6R;
+#X obj 30 214 r samp6TotalNumSamps;
+#X obj 246 316 s fromsamp6TotalNumSamps;
+#X connect 0 0 2 1;
+#X connect 1 0 4 0;
+#X connect 2 0 8 0;
+#X connect 3 0 1 0;
+#X connect 4 0 0 0;
+#X connect 7 0 2 0;

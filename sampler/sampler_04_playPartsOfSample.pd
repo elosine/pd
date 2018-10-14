@@ -1,162 +1,125 @@
-#N canvas 522 0 1398 1046 16;
-#X obj 121 158 soundfiler;
-#X obj 121 55 openpanel;
-#X obj 120 20 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
+#N canvas 137 22 1783 1016 16;
+#X obj 399 168 soundfiler;
+#X obj 399 86 openpanel;
+#X obj 398 51 bng 25 250 50 0 empty empty empty 17 7 0 10 -260097 -260097
 -260097;
-#X obj 121 207 expr 44100 / $f1;
-#X obj 126 505 phasor~;
-#X obj 49 626 *~;
-#X obj 72 963 *~;
-#X floatatom 283 848 5 0 1.5 0 - - -;
-#X obj 117 915 line~;
-#X msg 117 882 \$1 20;
-#X obj 72 1010 dac~, f 7;
-#X floatatom 121 248 15 0 0 0 - - -;
+#X obj 412 270 expr 44100 / $f1;
+#X obj 385 631 phasor~;
+#X obj 336 685 *~;
+#X obj 259 912 *~;
+#X floatatom 621 767 5 0 1.5 0 - - -;
+#X obj 621 834 line~;
+#X msg 621 801 \$1 20;
+#X obj 259 949 dac~, f 7;
+#X floatatom 412 302 10 0 0 0 - - -;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1L 1.23187e+06 float 2;
-#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 634 561 graph;
-#X obj 566 509 unsig~ 50;
-#X obj 637 561 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 8148 1;
-#X msg 257 56 \; pd dsp \$1;
-#X obj 257 21 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
+#X array buf1LQZ1 571233 float 2;
+#X coords 0 1 571233 -1 600 100 1 0 0;
+#X restore 778 124 graph;
+#X obj 781 144 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 9631 1;
+#X msg 512 85 \; pd dsp \$1;
+#X obj 512 50 tgl 25 0 empty empty empty 17 7 0 10 -257985 -1 -1 0
 1;
-#X text 282 248 <-phasor frequency;
-#X obj 199 666 unsig~ 50;
-#X floatatom 199 703 15 0 0 0 - - -;
-#X obj 117 781 loadbang;
-#X msg 117 814 1;
-#X obj 197 592 send~ toBuf1Graph;
-#X obj 566 475 receive~ toBuf1Graph;
-#X text 364 702 <-current sample index;
-#X text 298 22 <-start/stop DSP;
+#X floatatom 364 753 10 0 0 0 - - -;
+#X obj 621 700 loadbang;
+#X msg 621 733 1;
+#X obj 345 201 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 757 73 pd sigasfloat;
+#X obj 757 43 receive~ toBuf1GraphQZ1;
+#X obj 345 235 t b f f;
+#X obj 385 485 f;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 161 154 metro 50;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X connect 0 0 1 0;
+#X connect 1 0 7 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;
+#X restore 364 722 pd sigasfloat;
+#X text 346 788 Add another tabread4~ object 'buf1R', f 21;
+#X text 553 51 DSP;
+#X text 425 52 Load SF;
+#X text 514 302 Phasor Freq;
+#X text 468 752 Curr Samp;
+#X text 675 767 Amp;
+#X obj 395 685 s~ toBuf1GraphQZ1;
+#X msg 399 135 read -resize \$1 buf1LQZ1 buf1RQZ1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1R 1.23187e+06 float 2;
-#X coords 0 1 1.23187e+06 -1 600 200 1 0 0;
-#X restore 634 761 graph;
-#X obj 637 761 hsl 595 200 0 1 0 0 empty empty empty -2 -8 0 10 -262144
--1 -1 8148 1;
-#X msg 121 121 read -resize \$1 buf1L buf1R;
-#X obj 46 740 tabread4~ buf1L;
-#X obj 215 740 tabread4~ buf1R;
-#X obj 184 963 *~;
-#X obj 33 435 f;
-#X floatatom 528 165 10 0 0 0 - - -;
-#X obj 126 471 *;
-#X obj 528 402 t b f;
-#X obj 570 83 loadbang;
-#X msg 569 119 1;
-#X text 634 165 <-speed \, negative values play backwards;
-#N canvas 396 50 954 609 theory 0;
-#X text 110 95 To play a part of the sample \, you will have to have
-the phasor~ output index from sample x to sample y \, from start time
-to end time. Before it is multiplied by total number of samples \,
-the phasor signal is 0-1 \, deal with this part of the signal. You
-need to: 1)Calculate the total percentage of the sample part 2)The
-start percentage 3)Multiply the 0-1 signal from phasor~ by the pct
-of the sample part. For example if you are playing 25% of the sample
-the phasor~ signal (0-1) * 0.25 will output a signal from 0-0.25. 4)Add
-the start percentage so you begin at the right point. Finally \, you
-will need to adjust the phasor~ frequency \, because the frequency
-you need to read through the whole sample is not the same as reading
-through part of the sample;
-#X restore 518 26 pd theory Read Me;
-#X text 339 846 <-amp;
-#X floatatom 696 394 10 0 1 0 - - fromStartPct;
-#X floatatom 826 394 10 0 1 0 - - fromEndPct;
-#X text 694 363 Start Pct;
-#X text 823 362 End Pct;
-#X msg 637 119 0;
-#X text 666 83 <-initialize values at patch open;
-#N canvas 570 405 1206 544 partialSample 0;
-#X obj 142 36 r fromStartPct;
-#X obj 403 40 r fromEndPct;
-#X obj 209 243 expr if($f2>$f1 \, $f2-$f1 \, $f1-$f2);
-#X floatatom 209 280 5 0 0 0 - - -;
-#X obj 403 77 t b f;
-#X text 470 76 <-expr will only output with input to left inlet. Use
-trigger to force output with input to right inlet., f 37;
-#X text 562 244 <-use expr and an if statement to insure that total
-percentage is always positive, f 41;
-#X obj 171 345 *~;
-#X text 213 345 <-multiply phasor 0-1 sig by percentage of the partial
-sample, f 61;
-#X obj 109 417 +~;
-#X text 151 418 <-add start percentage to start at the right point
-;
-#X obj 108 477 outlet~ adjusted phasor;
-#X obj 21 3 inlet~ phasor 0-1;
-#X text 350 475 <-use inlet~/outlet~ for signals;
-#X obj 266 313 s fromPartPct;
-#X text 411 314 <-send to adjust phasor frequency;
-#X text 394 161 <-use expr and an if statement to correct start point
-;
-#X obj 41 162 expr if($f2>$f1 \, $f1 \, $f2);
-#X connect 0 0 2 0;
-#X connect 0 0 17 0;
-#X connect 1 0 4 0;
-#X connect 2 0 3 0;
-#X connect 3 0 7 1;
-#X connect 3 0 14 0;
-#X connect 4 0 2 0;
-#X connect 4 0 17 0;
-#X connect 4 1 2 1;
-#X connect 4 1 17 1;
-#X connect 7 0 9 0;
-#X connect 9 0 11 0;
-#X connect 12 0 7 0;
-#X connect 17 0 9 1;
-#X restore 126 550 pd partialSample;
-#X text 294 551 <-cmd/ctrl click me;
-#X obj 552 255 r fromPartPct;
-#X obj 551 323 t b f;
-#X obj 528 369 * 1;
-#X obj 552 289 expr 1/$f1;
-#X text 549 204 Multiply speed by reciprocal part percentage to play
-the partial sample at proper frequency, f 47;
-#X msg 699 118 1;
-#X connect 0 0 3 0;
-#X connect 0 0 5 1;
-#X connect 1 0 28 0;
+#X array buf1RQZ1 571233 float 2;
+#X coords 0 1 571233 -1 600 100 1 0 0;
+#X restore 778 224 graph;
+#X obj 781 244 hsl 595 60 0 1 0 0 empty empty empty -2 -8 0 10 -262144
+-1 -1 9631 1;
+#X obj 116 835 tabread4~ buf1LQZ1;
+#X obj 336 835 tabread4~ buf1RQZ1;
+#X obj 326 912 *~;
+#X text 451 578 To change speed simply multiple the phasor frequency
+by the desired speed., f 38;
+#X text 550 392 <-send the speed change \, then bang the current freq
+to initiate multiplication, f 40;
+#X text 641 353 <-speed \, negative values play backwards;
+#X text 423 477 <recall \, that this float object has stored the current
+phasor frequency (the frequency to playback the sample at normal speed)
+You can bang the left inlet of this float object to output the stored
+value;
+#X floatatom 492 356 8 0 0 0 - - -;
+#X text 577 356 Speed;
+#X obj 492 393 t b f;
+#X obj 385 596 *;
+#X connect 0 0 19 0;
+#X connect 1 0 32 0;
 #X connect 2 0 1 0;
 #X connect 3 0 11 0;
-#X connect 4 0 47 0;
-#X connect 5 0 18 0;
-#X connect 5 0 29 0;
-#X connect 5 0 30 0;
+#X connect 4 0 5 0;
+#X connect 4 0 31 0;
+#X connect 5 0 24 0;
+#X connect 5 0 35 0;
+#X connect 5 0 36 0;
 #X connect 6 0 10 0;
 #X connect 7 0 9 0;
 #X connect 8 0 6 1;
-#X connect 8 0 31 1;
+#X connect 8 0 37 1;
 #X connect 9 0 8 0;
-#X connect 11 0 32 0;
-#X connect 13 0 14 0;
-#X connect 13 0 27 0;
-#X connect 16 0 15 0;
-#X connect 18 0 19 0;
-#X connect 20 0 21 0;
-#X connect 21 0 7 0;
-#X connect 23 0 13 0;
-#X connect 28 0 0 0;
-#X connect 29 0 6 0;
-#X connect 30 0 31 0;
-#X connect 31 0 10 1;
-#X connect 32 0 34 0;
-#X connect 33 0 51 0;
-#X connect 34 0 4 0;
-#X connect 35 0 32 0;
-#X connect 35 1 34 1;
+#X connect 11 0 23 1;
+#X connect 15 0 14 0;
+#X connect 17 0 18 0;
+#X connect 18 0 7 0;
+#X connect 19 0 22 0;
+#X connect 20 0 13 0;
+#X connect 20 0 34 0;
+#X connect 21 0 20 0;
+#X connect 22 0 23 0;
+#X connect 22 1 5 1;
+#X connect 22 2 3 0;
+#X connect 23 0 45 0;
+#X connect 24 0 16 0;
+#X connect 32 0 0 0;
+#X connect 35 0 6 0;
 #X connect 36 0 37 0;
-#X connect 36 0 45 0;
-#X connect 36 0 54 0;
-#X connect 37 0 33 0;
-#X connect 45 0 41 0;
-#X connect 47 0 5 0;
-#X connect 47 0 22 0;
-#X connect 49 0 52 0;
-#X connect 50 0 51 0;
-#X connect 50 1 51 1;
-#X connect 51 0 35 0;
-#X connect 52 0 50 0;
-#X connect 54 0 42 0;
+#X connect 37 0 10 1;
+#X connect 42 0 44 0;
+#X connect 44 0 23 0;
+#X connect 44 1 45 1;
+#X connect 45 0 4 0;
