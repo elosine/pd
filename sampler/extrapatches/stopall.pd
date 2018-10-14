@@ -1,0 +1,18 @@
+#N canvas 0 22 450 300 10;
+#X obj 385 28 r fromStopAll;
+#X obj 296 154 s toStopQZ1;
+#X obj 352 128 s toStopQZ2;
+#X obj 390 105 s toStopQZ3;
+#X obj 410 158 s toStopQZ4;
+#X obj 559 166 s toStopQZ7;
+#X obj 476 134 s toStopQZ5;
+#X obj 518 105 s toStopQZ6;
+#X obj 591 140 s toStopQZ8;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 0 0 4 0;
+#X connect 0 0 5 0;
+#X connect 0 0 6 0;
+#X connect 0 0 7 0;
+#X connect 0 0 8 0;

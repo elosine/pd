@@ -1,0 +1,18 @@
+#N canvas 0 22 450 300 10;
+#X obj 385 28 r fromLoopTogAll;
+#X obj 296 154 s toLoopTogQZ1;
+#X obj 352 128 s toLoopTogQZ2;
+#X obj 390 105 s toLoopTogQZ3;
+#X obj 410 158 s toLoopTogQZ4;
+#X obj 559 166 s toLoopTogQZ7;
+#X obj 476 134 s toLoopTogQZ5;
+#X obj 518 105 s toLoopTogQZ6;
+#X obj 591 140 s toLoopTogQZ8;
+#X connect 0 0 1 0;
+#X connect 0 0 2 0;
+#X connect 0 0 3 0;
+#X connect 0 0 4 0;
+#X connect 0 0 5 0;
+#X connect 0 0 6 0;
+#X connect 0 0 7 0;
+#X connect 0 0 8 0;
