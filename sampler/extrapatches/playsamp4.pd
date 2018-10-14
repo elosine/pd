@@ -15,7 +15,46 @@
 10 -262144 -4034 -1 0 1;
 #X obj 39 260 hsl 595 20 0 1 0 0 toEndPctQZ4 empty empty -2 -8 0 10
 -262144 -4032 -1 0 1;
-#N canvas 6 22 1886 1021 subpatch1 0;
+#X obj 23 19 cnv 15 310 130 empty empty 4 275 12 0 14 -262130 -66577
+0;
+#X obj 35 43 bng 25 250 50 0 fromLoadToPlaySamp1QZ4 toLoadToPlaySamp1QZ4
+1 7 12 0 18 -260097 -260097 -1;
+#X floatatom 36 85 5 0 20 2 Amp toAmpQZ4 fromAmpQZ4;
+#X floatatom 189 85 8 0 0 2 Spd toSpdQZ4 fromSpdQZ4;
+#X floatatom 73 85 8 0 0 2 Start toStartPctQZ4 fromStartPctQZ4;
+#X floatatom 131 85 8 0 0 2 End toEndPctQZ4 fromEndPctQZ4;
+#X floatatom 284 121 5 0 0 2 Rel toRelQZ4 fromRelQZ4;
+#X floatatom 140 121 5 0 100000 2 Atk toAtkQZ4 fromAtkQZ4;
+#X obj 111 114 bng 25 250 50 0 fromTrigADSQZ4 toTrigADSQZ4 ADS 4 13
+0 10 -260097 -1 -1;
+#X floatatom 177 121 5 0 100000 2 Sus toSusQZ4 fromSusQZ4;
+#X floatatom 214 121 5 0 100000 2 Decay toDecayQZ4 fromDecayQZ4;
+#X obj 255 114 bng 25 250 50 0 fromTrigRelQZ4 toTrigRelQZ4 Rel 4 13
+0 10 -159808 -1 -1;
+#X obj 61 114 bng 25 250 50 0 fromStopQZ4 toStopQZ4 Stop 3 13 0 8 -258113
+-1 -1;
+#X obj 36 114 bng 25 250 50 0 fromStartQZ4 toStartQZ4 Start 3 13 0
+7 -4034 -1 -1;
+#X obj 86 114 tgl 25 0 fromLoopTogQZ4 toLoopTogQZ4 Loop 1 12 0 10 -262144
+-1 -33289 1 1;
+#X obj 60 43 bng 25 250 50 0 fromLoadToPlaySamp2QZ4 toLoadToPlaySamp2QZ4
+2 7 12 0 18 -260097 -260097 -1;
+#X obj 85 43 bng 25 250 50 0 fromLoadToPlaySamp3QZ4 toLoadToPlaySamp3QZ4
+3 7 12 0 18 -260097 -260097 -1;
+#X obj 110 43 bng 25 250 50 0 fromLoadToPlaySamp4QZ4 toLoadToPlaySamp4QZ4
+4 7 12 0 18 -260097 -260097 -1;
+#X obj 135 43 bng 25 250 50 0 fromLoadToPlaySamp5QZ4 toLoadToPlaySamp5QZ4
+5 7 12 0 18 -260097 -260097 -1;
+#X obj 160 43 bng 25 250 50 0 fromLoadToPlaySamp6QZ4 toLoadToPlaySamp6QZ4
+6 7 12 0 18 -260097 -260097 -1;
+#X obj 185 43 bng 25 250 50 0 fromLoadToPlaySamp7QZ4 toLoadToPlaySamp7QZ4
+7 7 12 0 18 -260097 -260097 -1;
+#X obj 210 43 bng 25 250 50 0 fromLoadToPlaySamp8QZ4 toLoadToPlaySamp8QZ4
+8 7 12 0 18 -260097 -260097 -1;
+#X obj 235 43 bng 25 250 50 0 fromLoadToPlaySamp9QZ4 toLoadToPlaySamp9QZ4
+9 7 12 0 18 -260097 -260097 -1;
+#X text 32 25 Sample to Play;
+#N canvas 6 22 1886 1021 subpatch4 0;
 #X obj 270 441 expr 44100 / $f1;
 #X obj 443 1180 phasor~;
 #X obj 389 1561 *~;
@@ -743,43 +782,4 @@ current playback buffer, f 39;
 #X connect 326 0 271 0;
 #X connect 327 0 325 0;
 #X connect 329 0 326 1;
-#X restore 35 354 pd subpatch1;
-#X obj 23 19 cnv 15 310 130 empty empty 1 275 12 0 14 -262130 -66577
-0;
-#X obj 35 43 bng 25 250 50 0 fromLoadToPlaySamp1QZ4 toLoadToPlaySamp1QZ4
-1 7 12 0 18 -260097 -260097 -1;
-#X floatatom 36 85 5 0 20 2 Amp toAmpQZ4 fromAmpQZ4;
-#X floatatom 189 85 8 0 0 2 Spd toSpdQZ4 fromSpdQZ4;
-#X floatatom 73 85 8 0 0 2 Start toStartPctQZ4 fromStartPctQZ4;
-#X floatatom 131 85 8 0 0 2 End toEndPctQZ4 fromEndPctQZ4;
-#X floatatom 284 121 5 0 0 2 Rel toRelQZ4 fromRelQZ4;
-#X floatatom 140 121 5 0 100000 2 Atk toAtkQZ4 fromAtkQZ4;
-#X obj 111 114 bng 25 250 50 0 fromTrigADSQZ4 toTrigADSQZ4 ADS 4 13
-0 10 -260097 -1 -1;
-#X floatatom 177 121 5 0 100000 2 Sus toSusQZ4 fromSusQZ4;
-#X floatatom 214 121 5 0 100000 2 Decay toDecayQZ4 fromDecayQZ4;
-#X obj 255 114 bng 25 250 50 0 fromTrigRelQZ4 toTrigRelQZ4 Rel 4 13
-0 10 -159808 -1 -1;
-#X obj 61 114 bng 25 250 50 0 fromStopQZ4 toStopQZ4 Stop 3 13 0 8 -258113
--1 -1;
-#X obj 36 114 bng 25 250 50 0 fromStartQZ4 toStartQZ4 Start 3 13 0
-7 -4034 -1 -1;
-#X obj 86 114 tgl 25 0 fromLoopTogQZ4 toLoopTogQZ4 Loop 1 12 0 10 -262144
--1 -33289 1 1;
-#X obj 60 43 bng 25 250 50 0 fromLoadToPlaySamp2QZ4 toLoadToPlaySamp2QZ4
-2 7 12 0 18 -260097 -260097 -1;
-#X obj 85 43 bng 25 250 50 0 fromLoadToPlaySamp3QZ4 toLoadToPlaySamp3QZ4
-3 7 12 0 18 -260097 -260097 -1;
-#X obj 110 43 bng 25 250 50 0 fromLoadToPlaySamp4QZ4 toLoadToPlaySamp4QZ4
-4 7 12 0 18 -260097 -260097 -1;
-#X obj 135 43 bng 25 250 50 0 fromLoadToPlaySamp5QZ4 toLoadToPlaySamp5QZ4
-5 7 12 0 18 -260097 -260097 -1;
-#X obj 160 43 bng 25 250 50 0 fromLoadToPlaySamp6QZ4 toLoadToPlaySamp6QZ4
-6 7 12 0 18 -260097 -260097 -1;
-#X obj 185 43 bng 25 250 50 0 fromLoadToPlaySamp7QZ4 toLoadToPlaySamp7QZ4
-7 7 12 0 18 -260097 -260097 -1;
-#X obj 210 43 bng 25 250 50 0 fromLoadToPlaySamp8QZ4 toLoadToPlaySamp8QZ4
-8 7 12 0 18 -260097 -260097 -1;
-#X obj 235 43 bng 25 250 50 0 fromLoadToPlaySamp9QZ4 toLoadToPlaySamp9QZ4
-9 7 12 0 18 -260097 -260097 -1;
-#X text 32 25 Sample to Play;
+#X restore 35 354 pd subpatch4;
