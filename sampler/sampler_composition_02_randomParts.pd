@@ -1,18 +1,18 @@
-#N canvas 512 45 1408 1013 12;
+#N canvas 512 41 1408 1013 12;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ1 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ1 43072 float 2;
+#X coords 0 1 43072 -1 600 60 1 0 0;
 #X restore 140 352 graph;
 #X obj 143 352 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ1 empty -2 -8
-0 10 -262144 -1 -1 7 1;
+0 10 -262144 -1 -1 89 1;
 #X obj 11 23 tgl 25 0 fromDSP empty DSP 5 12 0 10 -257985 -1 -1 1 1
 ;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ1 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ1 43072 float 2;
+#X coords 0 1 43072 -1 600 60 1 0 0;
 #X restore 140 432 graph;
 #X obj 143 432 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ1 empty -2 -8
-0 10 -262144 -1 -1 7 1;
+0 10 -262144 -1 -1 89 1;
 #X obj 143 332 hsl 595 20 0 1 0 0 toStartPctQZ1 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 143 412 hsl 595 20 0 1 0 0 toEndPctQZ1 empty empty -2 -8 0 10
@@ -1035,17 +1035,17 @@ f 29;
 9 7 12 0 18 -260097 -260097 -1;
 #X text 136 61 Sample to Play;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ2 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ2 60672 float 2;
+#X coords 0 1 60672 -1 600 60 1 0 0;
 #X restore 746 352 graph;
 #X obj 749 352 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ2 empty -2 -8
-0 10 -262144 -1 -1 41 1;
+0 10 -262144 -1 -1 7 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ2 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ2 60672 float 2;
+#X coords 0 1 60672 -1 600 60 1 0 0;
 #X restore 746 432 graph;
 #X obj 749 432 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ2 empty -2 -8
-0 10 -262144 -1 -1 41 1;
+0 10 -262144 -1 -1 7 1;
 #X obj 749 332 hsl 595 20 0 1 0 0 toStartPctQZ2 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 749 412 hsl 595 20 0 1 0 0 toEndPctQZ2 empty empty -2 -8 0 10
@@ -1827,17 +1827,17 @@ current playback buffer, f 39;
 #X connect 332 0 333 0;
 #X restore 682 1012 pd subpatch2;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ3 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ3 41472 float 2;
+#X coords 0 1 41472 -1 600 60 1 0 0;
 #X restore 140 517 graph;
 #X obj 143 517 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ3 empty -2 -8
-0 10 -262144 -1 -1 42 1;
+0 10 -262144 -1 -1 66 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ3 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ3 41472 float 2;
+#X coords 0 1 41472 -1 600 60 1 0 0;
 #X restore 140 597 graph;
 #X obj 143 597 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ3 empty -2 -8
-0 10 -262144 -1 -1 42 1;
+0 10 -262144 -1 -1 66 1;
 #X obj 143 497 hsl 595 20 0 1 0 0 toStartPctQZ3 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 143 577 hsl 595 20 0 1 0 0 toEndPctQZ3 empty empty -2 -8 0 10
@@ -2625,41 +2625,25 @@ current playback buffer, f 39;
 #X obj 394 27 inlet amp;
 #X obj 260 123 *~ 0.2;
 #X obj 255 27 inlet~ L;
-#X obj 355 123 *~ 0.2;
+#X obj 357 120 *~ 0.2;
 #X obj 324 27 inlet~ R;
 #X obj 55 200 dac~ 1 2;
 #N canvas 237 152 1024 621 sigasfloat 0;
 #X obj 21 54 inlet~ sigin;
 #X obj 138 214 snapshot~;
-#X obj 161 154 metro 50;
 #X obj 214 72 loadbang;
 #X text 235 207 samples a signal and outputs a float each time it receives
 a bang, f 34;
 #X text 254 153 bangs snapshot ever 50ms;
 #X text 314 73 metro needs a bang to start outputing bangs;
 #X obj 90 313 outlet float out;
+#X obj 161 154 metro 5;
 #X connect 0 0 1 0;
-#X connect 1 0 7 0;
-#X connect 2 0 1 0;
-#X connect 3 0 2 0;
+#X connect 1 0 6 0;
+#X connect 2 0 7 0;
+#X connect 7 0 1 0;
 #X restore 358 255 pd sigasfloat;
-#X obj 358 281 s toMeterR;
 #X obj 231 281 s toMeterL;
-#N canvas 237 152 1024 621 sigasfloat 0;
-#X obj 21 54 inlet~ sigin;
-#X obj 138 214 snapshot~;
-#X obj 161 154 metro 50;
-#X obj 214 72 loadbang;
-#X text 235 207 samples a signal and outputs a float each time it receives
-a bang, f 34;
-#X text 254 153 bangs snapshot ever 50ms;
-#X text 314 73 metro needs a bang to start outputing bangs;
-#X obj 90 313 outlet float out;
-#X connect 0 0 1 0;
-#X connect 1 0 7 0;
-#X connect 2 0 1 0;
-#X connect 3 0 2 0;
-#X restore 231 255 pd sigasfloat;
 #X obj 563 298 writesf~ 2;
 #X obj 583 171 r fromOpenRec;
 #X msg 583 227 open \$1;
@@ -2669,41 +2653,66 @@ a bang, f 34;
 #X obj 799 170 r fromStopRec;
 #X msg 799 199 stop;
 #X obj 494 171 r toWritesf;
+#X obj 1027 307;
+#X obj 358 282 rmstodb;
+#X obj 369 345 s toMeterR;
+#X obj 359 308 - 99;
+#N canvas 237 152 1024 621 sigasfloat 0;
+#X obj 21 54 inlet~ sigin;
+#X obj 138 214 snapshot~;
+#X obj 214 72 loadbang;
+#X text 235 207 samples a signal and outputs a float each time it receives
+a bang, f 34;
+#X text 254 153 bangs snapshot ever 50ms;
+#X text 314 73 metro needs a bang to start outputing bangs;
+#X obj 90 313 outlet float out;
+#X obj 161 154 metro 5;
+#X connect 0 0 1 0;
+#X connect 1 0 6 0;
+#X connect 2 0 7 0;
+#X connect 7 0 1 0;
+#X restore 253 186 pd sigasfloat;
+#X obj 253 213 rmstodb;
+#X obj 254 239 - 99;
 #X connect 0 0 3 1;
 #X connect 0 0 5 1;
 #X connect 1 0 0 0;
 #X connect 2 0 1 0;
 #X connect 3 0 7 0;
-#X connect 3 0 11 0;
-#X connect 3 0 12 0;
+#X connect 3 0 10 0;
+#X connect 3 0 23 0;
 #X connect 4 0 3 0;
 #X connect 5 0 7 1;
+#X connect 5 0 10 1;
 #X connect 5 0 8 0;
-#X connect 5 0 12 1;
 #X connect 6 0 5 0;
-#X connect 8 0 9 0;
-#X connect 11 0 10 0;
-#X connect 13 0 15 0;
-#X connect 14 0 12 0;
-#X connect 15 0 14 0;
+#X connect 8 0 20 0;
+#X connect 11 0 13 0;
+#X connect 12 0 10 0;
+#X connect 13 0 12 0;
+#X connect 14 0 15 0;
+#X connect 15 0 10 0;
 #X connect 16 0 17 0;
-#X connect 17 0 12 0;
-#X connect 18 0 19 0;
-#X connect 19 0 12 0;
-#X connect 20 0 12 0;
+#X connect 17 0 10 0;
+#X connect 18 0 10 0;
+#X connect 20 0 22 0;
+#X connect 22 0 21 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 25 0 9 0;
 #X restore 831 1181 pd digitalaudioconverterwithamplitudecontrol;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ4 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ4 49728 float 2;
+#X coords 0 1 49728 -1 600 60 1 0 0;
 #X restore 746 517 graph;
 #X obj 749 517 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ4 empty -2 -8
-0 10 -262144 -1 -1 50 1;
+0 10 -262144 -1 -1 58 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ4 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ4 49728 float 2;
+#X coords 0 1 49728 -1 600 60 1 0 0;
 #X restore 746 597 graph;
 #X obj 749 597 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ4 empty -2 -8
-0 10 -262144 -1 -1 50 1;
+0 10 -262144 -1 -1 58 1;
 #X obj 749 497 hsl 595 20 0 1 0 0 toStartPctQZ4 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 749 577 hsl 595 20 0 1 0 0 toEndPctQZ4 empty empty -2 -8 0 10
@@ -3485,17 +3494,17 @@ current playback buffer, f 39;
 #X connect 332 0 333 0;
 #X restore 868 1012 pd subpatch4;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ5 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ5 20736 float 2;
+#X coords 0 1 20736 -1 600 60 1 0 0;
 #X restore 140 682 graph;
 #X obj 143 682 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ5 empty -2 -8
-0 10 -262144 -1 -1 68 1;
+0 10 -262144 -1 -1 177 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ5 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ5 20736 float 2;
+#X coords 0 1 20736 -1 600 60 1 0 0;
 #X restore 140 762 graph;
 #X obj 143 762 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ5 empty -2 -8
-0 10 -262144 -1 -1 68 1;
+0 10 -262144 -1 -1 177 1;
 #X obj 143 662 hsl 595 20 0 1 0 0 toStartPctQZ5 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 143 742 hsl 595 20 0 1 0 0 toEndPctQZ5 empty empty -2 -8 0 10
@@ -4277,17 +4286,17 @@ current playback buffer, f 39;
 #X connect 332 0 333 0;
 #X restore 961 1012 pd subpatch5;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ6 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ6 41472 float 2;
+#X coords 0 1 41472 -1 600 60 1 0 0;
 #X restore 746 682 graph;
 #X obj 749 682 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ6 empty -2 -8
-0 10 -262144 -1 -1 26 1;
+0 10 -262144 -1 -1 86 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ6 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ6 41472 float 2;
+#X coords 0 1 41472 -1 600 60 1 0 0;
 #X restore 746 762 graph;
 #X obj 749 762 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ6 empty -2 -8
-0 10 -262144 -1 -1 26 1;
+0 10 -262144 -1 -1 86 1;
 #X obj 749 662 hsl 595 20 0 1 0 0 toStartPctQZ6 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 749 742 hsl 595 20 0 1 0 0 toEndPctQZ6 empty empty -2 -8 0 10
@@ -5069,17 +5078,17 @@ current playback buffer, f 39;
 #X connect 332 0 333 0;
 #X restore 1051 1012 pd subpatch6;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ7 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ7 13824 float 2;
+#X coords 0 1 13824 -1 600 60 1 0 0;
 #X restore 140 847 graph;
 #X obj 143 847 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ7 empty -2 -8
-0 10 -262144 -1 -1 22 1;
+0 10 -262144 -1 -1 268 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ7 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ7 13824 float 2;
+#X coords 0 1 13824 -1 600 60 1 0 0;
 #X restore 140 927 graph;
 #X obj 143 927 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ7 empty -2 -8
-0 10 -262144 -1 -1 22 1;
+0 10 -262144 -1 -1 268 1;
 #X obj 143 827 hsl 595 20 0 1 0 0 toStartPctQZ7 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 143 907 hsl 595 20 0 1 0 0 toEndPctQZ7 empty empty -2 -8 0 10
@@ -5861,17 +5870,17 @@ current playback buffer, f 39;
 #X connect 332 0 333 0;
 #X restore 1142 1012 pd subpatch7;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1LQZ8 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1LQZ8 70784 float 2;
+#X coords 0 1 70784 -1 600 60 1 0 0;
 #X restore 746 847 graph;
 #X obj 749 847 hsl 595 60 0 1 0 0 empty toGraphicIdxLQZ8 empty -2 -8
-0 10 -262144 -1 -1 57 1;
+0 10 -262144 -1 -1 42 1;
 #N canvas 0 22 450 278 (subpatch) 0;
-#X array buf1RQZ8 207360 float 2;
-#X coords 0 1 207360 -1 600 60 1 0 0;
+#X array buf1RQZ8 70784 float 2;
+#X coords 0 1 70784 -1 600 60 1 0 0;
 #X restore 746 927 graph;
 #X obj 749 927 hsl 595 60 0 1 0 0 empty toGraphicIdxRQZ8 empty -2 -8
-0 10 -262144 -1 -1 57 1;
+0 10 -262144 -1 -1 42 1;
 #X obj 749 827 hsl 595 20 0 1 0 0 toStartPctQZ8 empty empty -2 -8 0
 10 -262144 -4034 -1 0 1;
 #X obj 749 907 hsl 595 20 0 1 0 0 toEndPctQZ8 empty empty -2 -8 0 10
@@ -6656,7 +6665,7 @@ current playback buffer, f 39;
 #X obj 21 63 vu 15 120 toMeterL empty -1 -8 0 10 -66577 -1 1 0;
 #X obj 72 63 vu 15 120 toMeterR empty -1 -8 0 10 -66577 -1 1 0;
 #X obj 69 195 vsl 30 100 0 4 0 0 fromMasterAmp toMasterAmp empty 0
--9 0 10 -262144 -1 -1 343 1;
+-9 0 10 -262144 -1 -1 6500 1;
 #X floatatom 69 298 5 0 0 0 - fromMasterAmp -;
 #X obj 284 23 bng 25 250 50 0 fromOpenRec toOpenRec Open 3 12 0 8 -203904
 -262144 -33289;
@@ -6832,14 +6841,14 @@ current playback buffer, f 39;
 #X obj 630 23 tgl 25 0 fromCh8OnOffTog toCh8OnOffTog 8 7 12 0 18 -257985
 -1 -1 1 1;
 #X text 455 5 Audio Routing;
-#X floatatom 351 121 10 0 0 0 - toTotalDurQZ1 fromTotalDurQZ1;
-#X floatatom 662 120 10 0 0 0 - toTotalDurQZ2 fromTotalDurQZ2;
-#X floatatom 973 120 10 0 0 0 - toTotalDurQZ3 fromTotalDurQZ3;
-#X floatatom 1284 120 10 0 0 0 - toTotalDurQZ4 fromTotalDurQZ4;
-#X floatatom 351 251 10 0 0 0 - toTotalDurQZ5 fromTotalDurQZ5;
-#X floatatom 662 251 10 0 0 0 - toTotalDurQZ6 fromTotalDurQZ6;
-#X floatatom 973 251 10 0 0 0 - toTotalDurQZ7 fromTotalDurQZ7;
-#X floatatom 1284 251 10 0 0 0 - toTotalDurQZ8 fromTotalDurQZ8;
+#X floatatom 351 121 10 0 0 2 Dur toTotalDurQZ1 fromTotalDurQZ1;
+#X floatatom 662 120 10 0 0 2 Dur toTotalDurQZ2 fromTotalDurQZ2;
+#X floatatom 973 120 10 0 0 2 Dur toTotalDurQZ3 fromTotalDurQZ3;
+#X floatatom 1284 120 10 0 0 2 Dur toTotalDurQZ4 fromTotalDurQZ4;
+#X floatatom 351 251 10 0 0 2 Dur toTotalDurQZ5 fromTotalDurQZ5;
+#X floatatom 662 251 10 0 0 2 Dur toTotalDurQZ6 fromTotalDurQZ6;
+#X floatatom 973 251 10 0 0 2 Dur toTotalDurQZ7 fromTotalDurQZ7;
+#X floatatom 1284 251 10 0 0 2 Dur toTotalDurQZ8 fromTotalDurQZ8;
 #X obj 688 23 bng 25 250 50 0 fromStartTimedRec toStartTimedRec Start
 3 13 0 7 -4034 -1 -1;
 #X floatatom 718 30 10 0 0 2 Rec_Time toRecTime fromRecTime;
